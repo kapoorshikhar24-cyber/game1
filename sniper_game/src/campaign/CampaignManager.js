@@ -69,6 +69,9 @@ export class CampaignManager {
         mission.completed = true;
         if (data && data.choice) mission.playerChoice = data.choice;
 
+        // Apply consequence branching logic to future missions
+        this.applyDecisionConsequences();
+
         // Unlock next mission
         const nextIndex = this.currentMissionIndex + 1;
         if (nextIndex < this.missions.length) {
@@ -80,6 +83,36 @@ export class CampaignManager {
             mission,
             nextMissionIndex: nextIndex < this.missions.length ? nextIndex : null,
         });
+    }
+
+    applyDecisionConsequences() {
+        const m1 = this.getMissionById('M01');
+        const m3 = this.getMissionById('M03');
+        const m5 = this.getMissionById('M05');
+
+        if (m1 && m1.completed) {
+            if (m1.playerChoice === 'OPTION_A') {
+                // Shoot Kabir branch -> Consequence A: Kabir disappears earlier, Tara harder to locate
+                if (m3) {
+                    m3.briefing[0] = 'Infiltrate terminal following Kabir\'s abrupt elimination in Mission 01.';
+                    m3.storyBeats.opening[0].line = 'Inside terminal. With Kabir eliminated, their fallback protocols activated early.';
+                }
+                if (m5) {
+                    m5.briefing[0] = 'Locate Tara in remote village. With Kabir gone, she is hiding deeper in the mountains.';
+                    m5.storyBeats.opening[0].line = 'Tara... you\'re alive. After I shot Kabir, your trail almost went cold.';
+                }
+            } else if (m1.playerChoice === 'OPTION_B') {
+                // Observe Kabir branch -> Consequence B: Kabir escapes, extra intel recovered
+                if (m3) {
+                    m3.briefing[0] = 'Infiltrate terminal using extra tracking telemetry gathered from observing Kabir.';
+                    m3.storyBeats.opening[0].line = 'Inside terminal. The telemetry we gathered while observing Kabir brought us straight here.';
+                }
+                if (m5) {
+                    m5.briefing[0] = 'Locate Tara in remote village. Kabir is active nearby at the hidden communications hub.';
+                    m5.storyBeats.opening[0].line = 'Tara. You\'re alive. Kabir led me to this sector after I held fire at the compound.';
+                }
+            }
+        }
     }
 
     getChoiceHistory() {
