@@ -696,23 +696,28 @@ export const CAMPAIGN_MISSIONS = [
             status: 'TERMINATED',
             notes: 'Requires manual intelligence identification by player.',
         },
-    },
 
         endings: {
-            ENDING_A: {
-                title: 'THE MISSION',
-                subtitle: 'Complete the objective. The team comes home.',
-                text: 'Arjun completes the strategic objective. The Architect\'s operation is stopped. The facility is destroyed. The team extracts safely.\n\nThe Architect escapes.\n\nBut the immediate threat is over. And everyone under Arjun\'s command comes home.\n\n"Sometimes," Arjun says on the helicopter back, "stopping the operation is enough. He can\'t rebuild what we destroyed today."\n\nImran nods.\n\n"He\'ll be back," Meera says.\n\n"So will we," says Arjun.',
-            },
-            ENDING_B: {
-                title: 'THE HUNT',
-                subtitle: 'The Architect ends here.',
-                text: 'Arjun pursues the Architect through the facility.\n\nHe finds him.\n\nFacing him for the first time, the Architect is quiet.\n\n"You deviated," the Architect says. "I didn\'t predict this."\n\n"I know," says Arjun.\n\nThe Architect is taken into custody. The operation collapses.\n\nThe team makes it out — barely. But the Architect will not strike again.',
-            },
-            ENDING_C: {
-                title: 'THE TEAM',
-                subtitle: 'No one gets left behind. Not again.',
-                text: 'Arjun abandons the pursuit.\n\nHe reaches Kavya\'s position, extracts the team, brings everyone home.\n\nThe Architect escapes.\n\nLater, alone, Arjun looks at the mission files. He could have had him. He chose not to.\n\nImran finds him.\n\n"You made the right call," Imran says.\n\n"I made the call I could live with," says Arjun.\n\n"That\'s the same thing."\n\nThe Architect is still out there.\n\nBut Arjun knows something now. He knows exactly what kind of soldier he is.\n\nAnd so does the Architect.',
+            SUMMARY: {
+                title: 'ELITE SNIPER: SHADOWS OF INDIA — EPILOGUE',
+                subtitle: 'Truth vs Manipulation',
+                text: `Several weeks later.
+
+The investigation becomes public.
+The intelligence network is dismantled.
+The soldiers whose disappearances began the investigation are remembered.
+
+Kabir's status remains unknown.
+Tara disappears again.
+
+Arjun returns to active duty.
+A new mission file appears on his desk:
+
+CLASSIFICATION: RESTRICTED
+OPERATION: UNKNOWN
+
+Arjun looks at it.
+Fade to black.`,
             },
         },
     },
