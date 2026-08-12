@@ -146,16 +146,76 @@
             </div>
         </div>
 
-        <!-- Pause Menu -->
-        <div id="pause-menu" class="menu-overlay hidden">
-            <div class="menu-content" style="min-width: 340px;">
-                <div style="color: #d97706; font-size: 0.85rem; letter-spacing: 3px; margin-bottom: 8px;">OPERATION PAUSED</div>
-                <h1 class="title" style="font-size: 2rem; margin-bottom: 25px;">— TRISHUL SHADOW —</h1>
-                <button id="btn-resume" class="btn" style="font-size: 1.4rem; padding: 12px 40px; margin-bottom: 15px; width: 100%;">RESUME OPERATION</button>
-                <button class="btn" onclick="location.reload()" style="font-size: 1.1rem; padding: 8px 30px; width: 100%; background: rgba(55,65,81,0.4);">ABORT &amp; RESTART</button>
-                <div class="controls-list" style="margin-top: 20px; font-size: 0.8rem;">
-                    <p>H: Toggle HUD | Q: Swap Weapon | T: Tactical Tablet</p>
-                    <p>CTRL/C: Stance (Stand/Crouch/Prone)</p>
+        <!-- AAA Pause Menu -->
+        <div id="pause-menu" class="menu-overlay hidden aaa-pause-overlay">
+            <div class="aaa-pause-panel">
+                <!-- Top Insignia & Header -->
+                <div class="aaa-pause-header">
+                    <div class="aaa-pause-insignia">❖</div>
+                    <div class="aaa-pause-status">OPERATION PAUSED</div>
+                    <h1 class="aaa-pause-title">▶ TRISHUL SHADOW ◀</h1>
+                    <div class="aaa-pause-sub">OPERATION TRISHUL SHADOW · MISSION 01</div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="aaa-pause-actions">
+                    <button id="btn-resume" class="aaa-pause-btn aaa-btn-resume">
+                        <span class="aaa-btn-icon">▶</span>
+                        <div class="aaa-pause-btn-text">
+                            <div class="aaa-pause-btn-title">RESUME OPERATION</div>
+                            <div class="aaa-pause-btn-sub">Continue from last checkpoint</div>
+                        </div>
+                    </button>
+                    <button class="aaa-pause-btn aaa-btn-abort" onclick="location.reload()">
+                        <span class="aaa-btn-icon">↻</span>
+                        <div class="aaa-pause-btn-text">
+                            <div class="aaa-pause-btn-title">ABORT &amp; RESTART</div>
+                            <div class="aaa-pause-btn-sub">Return to mission start</div>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Controls Reminder Bar -->
+                <div class="aaa-pause-controls-header">CONTROLS REMINDER</div>
+                <div class="aaa-pause-controls-bar">
+                    <span><kbd>H</kbd> TOGGLE HUD</span>
+                    <span><kbd>Q</kbd> SWAP WEAPON</span>
+                    <span><kbd>🖱</kbd> FIRE</span>
+                    <span><kbd>SHIFT</kbd> HOLD BREATH</span>
+                    <span><kbd>T</kbd> TACTICAL TABLET</span>
+                    <span><kbd>CTRL / C</kbd> STANCE</span>
+                </div>
+
+                <!-- Operator Telemetry Grid -->
+                <div class="aaa-pause-telemetry-grid">
+                    <div>
+                        <div class="aaa-pause-label">OPERATOR</div>
+                        <div class="aaa-pause-val">CAPT. ARJUN RATHORE</div>
+                        <div class="aaa-pause-sub-status">● STATUS: OPERATIONAL</div>
+                    </div>
+                    <div>
+                        <div class="aaa-pause-label">TIME</div>
+                        <div class="aaa-pause-val">04:32 AM IST</div>
+                        <div class="aaa-pause-sub-val">12 DEC 2024</div>
+                    </div>
+                    <div>
+                        <div class="aaa-pause-label">LOCATION</div>
+                        <div class="aaa-pause-val">NORTHERN HIMALAYAS</div>
+                        <div class="aaa-pause-sub-val">INDIA</div>
+                    </div>
+                    <div>
+                        <div class="aaa-pause-label">WEATHER</div>
+                        <div class="aaa-pause-val">-6°C</div>
+                        <div class="aaa-pause-sub-val">FOGGY</div>
+                    </div>
+                </div>
+
+                <!-- Secure Footer -->
+                <div class="aaa-pause-footer">
+                    <span>🔒 COMMS SECURE</span>
+                    <span>ENCRYPTION: <strong style="color:#22c55e;">ACTIVE</strong></span>
+                    <span class="aaa-waveform">🗲-🗲-🗲-🗲</span>
+                    <span class="aaa-channel">RAVEN-1 // SECURE CHANNEL</span>
                 </div>
             </div>
         </div>

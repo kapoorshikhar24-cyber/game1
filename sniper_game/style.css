@@ -379,6 +379,209 @@ body {
     margin-right: 6px;
 }
 
+/* AAA Pause Menu CSS */
+.aaa-pause-overlay {
+    background: linear-gradient(rgba(4, 6, 8, 0.7), rgba(4, 6, 8, 0.85)), url('/assets/pause_screen_full.png') no-repeat center center / cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.aaa-pause-panel {
+    width: 90vw;
+    max-width: 680px;
+    background: rgba(10, 14, 18, 0.94);
+    border: 1px solid rgba(217, 119, 6, 0.35);
+    border-radius: 8px;
+    padding: 32px 36px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), inset 0 0 40px rgba(217, 119, 6, 0.05);
+    backdrop-filter: blur(16px);
+    color: #e6edf3;
+    font-family: 'Share Tech Mono', monospace;
+    pointer-events: auto;
+}
+
+.aaa-pause-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.aaa-pause-insignia {
+    color: #d97706;
+    font-size: 1.4rem;
+    margin-bottom: 2px;
+}
+
+.aaa-pause-status {
+    color: #d97706;
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    font-weight: bold;
+}
+
+.aaa-pause-title {
+    font-size: 2.4rem;
+    font-weight: 900;
+    letter-spacing: 8px;
+    margin: 6px 0;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255,255,255,0.3);
+}
+
+.aaa-pause-sub {
+    font-size: 0.72rem;
+    color: #9ca3af;
+    letter-spacing: 3px;
+}
+
+.aaa-pause-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.aaa-pause-btn {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 24px;
+    border-radius: 6px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.aaa-btn-resume {
+    background: linear-gradient(135deg, rgba(217, 119, 6, 0.35), rgba(15, 23, 30, 0.95));
+    border: 1px solid #d97706;
+    color: #ffffff;
+    box-shadow: 0 0 20px rgba(217, 119, 6, 0.25);
+}
+
+.aaa-btn-resume:hover {
+    background: #d97706;
+    color: #000000;
+    font-weight: bold;
+    box-shadow: 0 0 35px rgba(217, 119, 6, 0.6);
+    transform: translateY(-1px);
+}
+
+.aaa-btn-abort {
+    background: rgba(20, 27, 34, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #cbd5e1;
+}
+
+.aaa-btn-abort:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: #ef4444;
+    color: #ef4444;
+    transform: translateY(-1px);
+}
+
+.aaa-btn-icon {
+    font-size: 1.4rem;
+}
+
+.aaa-pause-btn-text {
+    text-align: left;
+}
+
+.aaa-pause-btn-title {
+    font-size: 1.15rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.aaa-pause-btn-sub {
+    font-size: 0.7rem;
+    opacity: 0.75;
+    letter-spacing: 1px;
+}
+
+.aaa-pause-controls-header {
+    text-align: center;
+    font-size: 0.65rem;
+    color: #d97706;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+}
+
+.aaa-pause-controls-bar {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    background: rgba(15, 20, 25, 0.8);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    color: #9ca3af;
+    margin-bottom: 20px;
+}
+
+.aaa-pause-controls-bar kbd {
+    background: rgba(255,255,255,0.15);
+    color: #ffffff;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 0.65rem;
+    margin-right: 4px;
+}
+
+.aaa-pause-telemetry-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    background: rgba(15, 20, 25, 0.7);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
+    padding: 12px;
+    margin-bottom: 16px;
+    font-size: 0.72rem;
+}
+
+.aaa-pause-label {
+    color: #d97706;
+    font-size: 0.62rem;
+    letter-spacing: 1px;
+}
+
+.aaa-pause-val {
+    color: #ffffff;
+    font-weight: bold;
+    margin-top: 2px;
+}
+
+.aaa-pause-sub-status {
+    color: #22c55e;
+    font-size: 0.62rem;
+    margin-top: 2px;
+}
+
+.aaa-pause-sub-val {
+    color: #8b949e;
+    font-size: 0.62rem;
+    margin-top: 2px;
+}
+
+.aaa-pause-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.68rem;
+    color: #8b949e;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 10px;
+}
+
+.aaa-waveform {
+    color: #22c55e;
+    letter-spacing: 2px;
+}
+
 .menu-content {
     text-align: center;
     border: 1px solid var(--border-metal);
