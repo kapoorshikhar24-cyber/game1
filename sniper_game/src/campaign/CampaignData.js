@@ -7,10 +7,8 @@
 // ─── Character voice colors ───────────────────────────────────────────────────
 export const CHARACTERS = {
     ARJUN:    { name: 'CAPTAIN ARJUN RATHORE',  color: '#60a5fa', short: 'ARJUN'    },
-    VIKRAM:   { name: 'MAJOR VIKRAM SINGH',       color: '#f59e0b', short: 'VIKRAM'   },
-    IMRAN:    { name: 'HAVILDAR IMRAN KHAN',      color: '#34d399', short: 'IMRAN'    },
-    MEERA:    { name: 'LT. MEERA NAIR',           color: '#f472b6', short: 'MEERA'    },
-    KAVYA:    { name: 'CPT. KAVYA MENON',         color: '#22d3ee', short: 'KAVYA'    },
+    MEERA:    { name: 'MAJOR MEERA SEN',          color: '#f472b6', short: 'MEERA'    },
+    KABIR:    { name: 'KABIR',                    color: '#f59e0b', short: 'KABIR'    },
     TARA:     { name: 'TARA',                     color: '#a78bfa', short: 'TARA'     },
     ARCHITECT:{ name: 'THE ARCHITECT',            color: '#ef4444', short: 'ARCHITECT' },
     SYSTEM:   { name: '[ SYSTEM ]',              color: '#9ca3af', short: 'SYSTEM'   },
@@ -92,7 +90,7 @@ export const ENVIRONMENTS = {
     },
 };
 
-// ─── 10 Mission definitions ───────────────────────────────────────────────────
+// ─── 10 Campaign Mission definitions ──────────────────────────────────────────
 export const CAMPAIGN_MISSIONS = [
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -111,768 +109,538 @@ export const CAMPAIGN_MISSIONS = [
         playerChoice: null,
 
         briefing: [
-            'A relay station went offline three nights ago.',
-            'Yesterday, a patrol disappeared.',
-            'Observe remote mountain valley settlement.',
-            'Determine who is operating inside the compound.',
-            'Locate Hostile Commander KABIR.',
-            'Investigate the disappearance of local informant TARA.',
+            'Radio transmissions have disappeared and patrol routes were altered.',
+            'Infiltrate the Himalayan border sector before sunrise.',
+            'Reach observation ridge and scope enemy compound.',
+            'Identify Hostile Commander Kabir.',
+            'Determine what the hostile network is preparing.',
+            'Investigate the unexpected presence of informant Tara.',
         ],
 
         primaryObjectives: [
-            { id: 'reach_obs_point',     title: 'Reach Observation Point',     desc: 'Move forward through mountain corridor to overwatch ridge [486m].' },
-            { id: 'establish_overwatch', title: 'Establish Overwatch',          desc: 'Equip sniper scope and observe enemy compound activity.' },
-            { id: 'identify_target',     title: 'Confirm Target: Kabir',        desc: 'Scope in and identify Kabir — dark field jacket, tall, with two guards.' },
-            { id: 'investigate_tara',    title: 'Determine Tara\'s Presence',   desc: 'Observe missing informant Tara entering the compound.' },
-            { id: 'make_decision',       title: 'Tactical Choice',              desc: 'Decide whether to eliminate Kabir or continue observation.' },
-            { id: 'reach_extraction',    title: 'Reach Extraction Point',       desc: 'Relocate on foot through valley to secondary extraction beacon [732m].' },
+            { id: 'reach_obs_point',     title: 'Reach Observation Ridge',     desc: 'Approach before sunrise and secure overwatch position.' },
+            { id: 'establish_overwatch', title: 'Reconnaissance & Observation',desc: 'Equip sniper scope to observe compound activity.' },
+            { id: 'identify_kabir',      title: 'Target Identification: Kabir',desc: 'Locate hostile commander Kabir entering compound.' },
+            { id: 'observe_tara',        title: 'Unexpected Contact: Tara',    desc: 'Observe missing informant Tara meeting Kabir.' },
+            { id: 'tactical_choice_m01', title: 'Tactical Decision',           desc: 'Choose: Take the shot OR continue observing.' },
+            { id: 'extract_m01',         title: 'Extraction',                  desc: 'Evacuate valley under compound lockdown or stealth alert.' },
         ],
         optionalObjectives: [
-            { id: 'inspect_patrol_vehicle', title: 'Inspect Abandoned Patrol Vehicle', desc: 'Examine patrol vehicle near forest path for military intelligence.' },
-            { id: 'remain_undetected',      title: 'Ghost Reconnaissance',             desc: 'Complete extraction without being spotted by enemy search patrols.' },
+            { id: 'investigate_environment', title: 'Environmental Investigation', desc: 'Scan compound perimeter for secondary signal emitters.' },
+            { id: 'remain_ghost_m01',        title: 'Ghost Reconnaissance',        desc: 'Complete extraction without taking direct player damage.' },
         ],
 
-        // Story beats — fired by EventBus during mission
         storyBeats: {
             opening: [
-                { char: 'VIKRAM', line: "Rathore. Wake up.", delay: 0 },
-                { char: 'ARJUN',  line: "I'm awake, sir.", delay: 2500 },
-                { char: 'VIKRAM', line: "Good. Because we're already late.", delay: 5000 },
-                { char: 'VIKRAM', line: "A relay station went offline three nights ago.", delay: 8000 },
-                { char: 'IMRAN',  line: "Yesterday, a patrol disappeared.", delay: 11000 },
-                { char: 'ARJUN',  line: "Enemy?", delay: 13500 },
-                { char: 'VIKRAM', line: "We don't know. That's why you're going in quiet.", delay: 15500 },
-                { char: 'IMRAN',  line: "That's usually when things get interesting.", delay: 19000 },
-            ],
-            vehicleFound: [
-                { char: 'MEERA',  line: "Rathore, stop. That's the missing patrol vehicle.", delay: 0 },
-                { char: 'ARJUN',  line: "Someone removed the radio.", delay: 3000 },
-                { char: 'MEERA',  line: "Because they didn't want us listening.", delay: 5500 },
+                { char: 'MEERA',  line: "Rathore, reach the observation ridge before sunrise.", delay: 0 },
+                { char: 'ARJUN',  line: "In position. Sector is quiet.", delay: 2500 },
+                { char: 'MEERA',  line: "Too quiet. Radios went silent 3 hours ago.", delay: 5000 },
             ],
             obsPointReached: [
-                { char: 'IMRAN',  line: "Welcome to the neighborhood.", delay: 0 },
-                { char: 'ARJUN',  line: "How many?", delay: 2500 },
-                { char: 'IMRAN',  line: "At least eight. Armed. Watching the road.", delay: 4500 },
-                { char: 'MEERA',  line: "We're looking for a man called Kabir. Dark jacket. Tall. Usually has two guards.", delay: 7500 },
-                { char: 'IMRAN',  line: "That's half the people down there.", delay: 12000 },
-                { char: 'MEERA',  line: "Then you'll have to pay attention.", delay: 14000 },
-            ],
-            scopeIn: [
-                { char: 'IMRAN',  line: "Eyes on compound. Take your time. Let him come to you.", delay: 0 },
-            ],
-            targetVisible: [
-                { char: 'IMRAN',  line: "Possible target. Black jacket, near the command building.", delay: 0 },
-                { char: 'MEERA',  line: "Wait for confirmation.", delay: 2000 },
+                { char: 'ARJUN',  line: "Eyes on compound. Multiple armed guards.", delay: 0 },
+                { char: 'MEERA',  line: "Identify Kabir. Determine what they're preparing.", delay: 2500 },
             ],
             targetConfirmed: [
-                { char: 'MEERA',  line: "That's him. Target confirmed — Kabir.", delay: 0 },
-                { char: 'IMRAN',  line: "You've got him, Arjun.", delay: 2500 },
+                { char: 'ARJUN',  line: "Target identified — Kabir.", delay: 0 },
             ],
             taraAppears: [
-                { char: 'ARJUN',  line: "Tara?", delay: 0 },
-                { char: 'MEERA',  line: "That's impossible.", delay: 1500 },
-                { char: 'ARJUN',  line: "You said she was missing.", delay: 3000 },
-                { char: 'MEERA',  line: "She was.", delay: 4500 },
-                { char: 'MEERA',  line: "Which means someone found her first.", delay: 6000 },
+                { char: 'ARJUN',  line: "Hold on... Tara just entered the compound.", delay: 0 },
+                { char: 'MEERA',  line: "Tara? She was reported dead during the last operation!", delay: 2500 },
+                { char: 'ARJUN',  line: "She's standing right next to Kabir.", delay: 5000 },
             ],
             choiceA_taken: [
-                { char: 'ARJUN',  line: "Taking the shot.", delay: 0 },
-                { char: 'IMRAN',  line: "Shot!", delay: 1200 },
-                { char: 'MEERA',  line: "Target neutralized. But the compound is going loud — extract immediately!", delay: 3000 },
+                { char: 'ARJUN',  line: "Taking the shot on Kabir.", delay: 0 },
+                { char: 'MEERA',  line: "Kabir is down! Compound is going into immediate lockdown! Extract now!", delay: 2000 },
             ],
             choiceB_observe: [
-                { char: 'ARJUN',  line: "Holding fire. Something doesn't feel right.", delay: 0 },
-                { char: 'MEERA',  line: "Tara handed Kabir a data device. They're moving. We need that device — track him and extract!", delay: 2000 },
-                { char: 'IMRAN',  line: "And compound just went active. Move, Arjun.", delay: 7500 },
-            ],
-            compoundAlert: [
-                { char: 'IMRAN',  line: "Movement on the ridge. They've made us.", delay: 0 },
-                { char: 'ARJUN',  line: "How bad?", delay: 2000 },
-                { char: 'IMRAN',  line: "About to become worse. Two patrols moving your direction.", delay: 4000 },
-            ],
-            escape: [
-                { char: 'IMRAN',  line: "Two patrols ahead. Left route?", delay: 0 },
-                { char: 'ARJUN',  line: "Too exposed.", delay: 2500 },
-                { char: 'IMRAN',  line: "Right?", delay: 4000 },
-                { char: 'ARJUN',  line: "That's a cliff.", delay: 5500 },
-                { char: 'IMRAN',  line: "I knew you'd remember. Push through — go!", delay: 7000 },
-            ],
-            extractionReached: [
-                { char: 'VIKRAM', line: "Good work. Come home, Rathore.", delay: 0 },
+                { char: 'ARJUN',  line: "Holding fire. Continuing observation.", delay: 0 },
+                { char: 'MEERA',  line: "They're leaving together... Kabir isn't preparing an attack. He's searching for something.", delay: 2500 },
             ],
             debrief: [
-                { char: 'MEERA',  line: "Rathore, we've analyzed the communications.", delay: 0 },
-                { char: 'ARJUN',  line: "And?", delay: 3000 },
-                { char: 'MEERA',  line: "This wasn't a weapons operation.", delay: 5000 },
-                { char: 'MEERA',  line: "Someone was measuring our response time. Every patrol. Every relay. Every reaction.", delay: 8000 },
-                { char: 'ARJUN',  line: "Why?", delay: 14000 },
-                { char: 'MEERA',  line: "That's what we're going to find out.", delay: 16000 },
-            ],
-        },
-
-        // Lines triggered by player actions / idle states
-        contextualLines: {
-            playerIdleTooLong: [
-                { char: 'IMRAN', line: "We've been watching that building for ten minutes." },
-                { char: 'IMRAN', line: "Any day now, Arjun." },
-                { char: 'IMRAN', line: "I'm not saying hurry. I'm saying... hurry." },
-            ],
-            playerInjured: [
-                { char: 'IMRAN', line: "Rathore, report!" },
-                { char: 'ARJUN', line: "Still operational." },
-            ],
-            enemyAlerted: [
-                { char: 'IMRAN', line: "They're searching the ridge — stay low." },
-                { char: 'MEERA', line: "Alert status rising. Do not engage unless necessary." },
-            ],
-            scopeZoomMax: [
-                { char: 'IMRAN', line: "Good angle. Watch your breathing." },
+                { char: 'MEERA',  line: "Rathore, transmission recovered... corrupted.", delay: 0 },
+                { char: 'ARJUN',  line: "Can you decode it?", delay: 2500 },
+                { char: 'MEERA',  line: "Only three words recovered... 'The signal is active.'", delay: 5000 },
             ],
         },
 
         targetProfile: {
             name: 'KABIR',
-            alias: 'Commander Kabir',
-            description: 'Height ~1.8m. Dark field jacket. Travels with armed escort of two guards at all times.',
+            alias: 'Former Intelligence Operative',
+            description: 'Former reliable intel agent. Now coordinating network in Himalayan sector.',
             threat: 'HIGH',
             status: 'ACTIVE',
-            notes: 'Possibly operating under an external handler. Identity of handler unknown.',
+            notes: 'Appears to believe he is exposing a greater threat.',
         },
     },
 
     // ═══════════════════════════════════════════════════════════════════════════
-    // MISSION 02 — THE SILENT PASS
+    // MISSION 02 — THE LOST PATROL
     // ═══════════════════════════════════════════════════════════════════════════
     {
         id: 'M02',
         index: 1,
-        codename: 'SILENT PASS',
-        title: 'OPERATION: SILENT PASS',
-        chapter: 'CHAPTER 2 — THE DECOY',
-        location: 'HIGH-ALTITUDE MOUNTAIN PASS, NORTHERN INDIA',
+        codename: 'THE LOST PATROL',
+        title: 'OPERATION: THE LOST PATROL',
+        chapter: 'CHAPTER 2 — TRACKS IN THE SNOW',
+        location: 'MOUNTAIN SUPPLY ROUTE, NORTHERN INDIA',
         environment: 'MOUNTAIN_PASS',
         unlocked: false,
         completed: false,
         playerChoice: null,
 
         briefing: [
-            'Following intelligence recovered from Mission 1.',
-            'Enemy movement detected in high-altitude mountain pass.',
-            'Track suspicious convoy activity.',
-            'Do not engage — observe and report.',
-            'Beware: enemy has begun using decoys.',
+            'Investigate missing Indian patrol vehicle on mountain supply route.',
+            'Patrol vanished without sending distress signal.',
+            'Track environmental clues left by missing soldiers.',
+            'Locate and recover damaged field recorder.',
+            'Determine if Kabir was involved.',
         ],
 
         primaryObjectives: [
-            { id: 'reach_pass_overwatch', title: 'Reach Pass Overwatch',       desc: 'Navigate to the ridge overlooking the mountain pass.' },
-            { id: 'track_convoy',         title: 'Track Convoy Movement',      desc: 'Observe the convoy moving through the pass. Note: not everything is as it appears.' },
-            { id: 'find_real_target',     title: 'Identify Real Activity',     desc: 'Ignore the decoy movement. Locate the true objective.' },
-            { id: 'recover_intel',        title: 'Photograph Architect Clue',  desc: 'Mark the encrypted signal equipment for extraction.' },
-            { id: 'extract_m02',          title: 'Reach Extraction',           desc: 'Move to helicopter extraction zone at the eastern ridge.' },
+            { id: 'reach_supply_route', title: 'Reconnaissance Mountain Route', desc: 'Move covertly along mountain supply route.' },
+            { id: 'investigate_clues',  title: 'Environmental Tracking',       desc: 'Examine abandoned patrol tracks and discarded gear.' },
+            { id: 'find_recorder',      title: 'Recover Damaged Field Recorder',desc: 'Locate destroyed vehicle and extract recorder data.' },
+            { id: 'sub-station_scout',  title: 'Long-Range Observation',        desc: 'Observe unauthorized communications station.' },
+            { id: 'extract_m02',        title: 'Tactical Extraction',           desc: 'Extract with audio recording.' },
         ],
         optionalObjectives: [
-            { id: 'decode_signal',   title: 'Intercept Radio Signal', desc: 'Find and photograph the enemy relay equipment for SIGINT.' },
+            { id: 'avoid_detection_m02', title: 'Ghost Tracking', desc: 'Complete tracking without alerting hostile mountain patrols.' },
         ],
 
         storyBeats: {
             opening: [
-                { char: 'VIKRAM', line: "The intel from Mission 1 pointed here. Someone is moving something through this pass.", delay: 0 },
-                { char: 'MEERA',  line: "The convoy appeared this morning. Eight vehicles. But something about the pattern is wrong.", delay: 5000 },
-                { char: 'IMRAN',  line: "Wrong how?", delay: 9500 },
-                { char: 'MEERA',  line: "They want us looking left.", delay: 11000 },
+                { char: 'MEERA',  line: "Patrol vehicle disappeared 12 hours ago without distress signal.", delay: 0 },
+                { char: 'ARJUN',  line: "I'll find out why.", delay: 2500 },
             ],
-            decoyRevealed: [
-                { char: 'IMRAN',  line: "Someone wants us looking left.", delay: 0 },
-                { char: 'ARJUN',  line: "And?", delay: 2000 },
-                { char: 'IMRAN',  line: "I'm looking right.", delay: 3500 },
+            recorderFound: [
+                { char: 'ARJUN',  line: "Found the vehicle. Damaged field recorder recovered.", delay: 0 },
+                { char: 'MEERA',  line: "Playback available?", delay: 2500 },
+                { char: 'ARJUN',  line: "Fragments only... Kabir's voice is on it.", delay: 5000 },
             ],
-            architectClue: [
-                { char: 'MEERA',  line: "Rathore, that signal equipment is not standard issue. Someone has been using it to collect data.", delay: 0 },
-                { char: 'ARJUN',  line: "What kind of data?", delay: 5000 },
-                { char: 'MEERA',  line: "Response patterns. Radio protocols. Patrol timing. This is a surveillance network.", delay: 7000 },
-                { char: 'KAVYA',  line: "Whoever built this — they've been studying us for months.", delay: 13000 },
+            storyReveal: [
+                { char: 'MEERA',  line: "The patrol uncovered an unauthorized communications network buried beneath the mountains.", delay: 0 },
             ],
             debrief: [
-                { char: 'MEERA',  line: "The convoy was empty. Every vehicle — empty.", delay: 0 },
-                { char: 'VIKRAM', line: "Then what were they moving?", delay: 4000 },
-                { char: 'MEERA',  line: "Nothing. They were watching us react to them.", delay: 6500 },
+                { char: 'TARA',   line: "[RECORDER AUDIO] If Arjun finds this, don't let him trust the command.", delay: 0 },
+                { char: 'ARJUN',  line: "Meera... that was Tara's voice.", delay: 4000 },
             ],
         },
-        contextualLines: {
-            playerIdleTooLong: [
-                { char: 'IMRAN', line: "Keep watching. The decoy works best when we're distracted." },
-                { char: 'IMRAN', line: "Don't let them control where you look." },
-            ],
-        },
+
         targetProfile: {
-            name: 'UNKNOWN SIGNAL SOURCE',
-            alias: 'Architect Relay Node',
-            description: 'Portable encrypted signal relay. Origin unknown. Design does not match any known group.',
+            name: 'BURIED NETWORK NODE',
+            alias: 'Sub-surface Array',
+            description: 'Unauthorized signal network buried under mountain rock.',
             threat: 'MEDIUM',
             status: 'ACTIVE',
-            notes: 'First confirmed evidence of systematic surveillance operation.',
+            notes: 'Contains recordings mentioning command distrust.',
         },
     },
 
     // ═══════════════════════════════════════════════════════════════════════════
-    // MISSION 03 — BROKEN RELAY
+    // MISSION 03 — ECHO UNDER SNOW
     // ═══════════════════════════════════════════════════════════════════════════
     {
         id: 'M03',
         index: 2,
-        codename: 'BROKEN RELAY',
-        title: 'OPERATION: BROKEN RELAY',
-        chapter: 'CHAPTER 3 — THE NETWORK',
-        location: 'MOUNTAIN COMMUNICATIONS STATION, NORTHERN INDIA',
+        codename: 'ECHO UNDER SNOW',
+        title: 'OPERATION: ECHO UNDER SNOW',
+        chapter: 'CHAPTER 3 — COMPROMISED CHAIN',
+        location: 'ABANDONED MOUNTAIN COMMUNICATIONS STATION',
         environment: 'MOUNTAIN_PASS',
         unlocked: false,
         completed: false,
         playerChoice: null,
 
         briefing: [
-            'A communications station has been compromised.',
-            'Technical team requires armed escort to restore the relay.',
-            'Hold position while engineers work.',
-            'Protect the team from approaching hostile forces.',
-            'Do not let the relay go dark again.',
+            'Infiltrate abandoned mountain communications facility.',
+            'Facility has been inactive for years, but recently powered on.',
+            'Investigate electronic transmissions.',
+            'Determine who is manipulating intelligence sent to military units.',
         ],
 
         primaryObjectives: [
-            { id: 'escort_team',         title: 'Escort Technical Team',      desc: 'Lead Kavya\'s team to the communications relay station.' },
-            { id: 'hold_position',       title: 'Establish Defensive Position', desc: 'Hold the perimeter while the team restores communications.' },
-            { id: 'eliminate_wave1',     title: 'Repel First Assault',         desc: 'Stop the incoming hostile patrol from reaching the station.' },
-            { id: 'protect_kavya',       title: 'Protect Kavya\'s Team',       desc: 'Keep all technical personnel alive throughout the mission.' },
-            { id: 'relay_restored',      title: 'Relay Restored',              desc: 'Wait for the relay to come back online.' },
-            { id: 'extract_m03',         title: 'Reach Extraction',            desc: 'Move to extraction before secondary wave arrives.' },
+            { id: 'infiltrate_station', title: 'Infiltrate Station',            desc: 'Breach perimeter of abandoned facility.' },
+            { id: 'electronic_invest',  title: 'Electronic Investigation',      desc: 'Access terminal to decrypt recent signal logs.' },
+            { id: 'sniper_overwatch',   title: 'Sniper Overwatch',              desc: 'Provide overwatch against approaching hostiles.' },
+            { id: 'extract_m03',        title: 'Extract Intel Data',            desc: 'Extract before hostile intercept team locks down facility.' },
         ],
         optionalObjectives: [
-            { id: 'recover_enemy_radio', title: 'Recover Enemy Radio', desc: 'Find and recover an enemy radio unit for SIGINT analysis.' },
+            { id: 'no_alarm_m03', title: 'Silent Operator', desc: 'Infiltrate without triggering security alarms.' },
         ],
 
         storyBeats: {
             opening: [
-                { char: 'KAVYA',  line: "Captain, I need four hours to restore this relay. Think you can keep us alive that long?", delay: 0 },
-                { char: 'ARJUN',  line: "Three.", delay: 4500 },
-                { char: 'KAVYA',  line: "...I'll work faster.", delay: 6000 },
+                { char: 'ARJUN',  line: "Inside facility. Old equipment, but powered on.", delay: 0 },
+                { char: 'MEERA',  line: "Find the terminal. See what they were transmitting.", delay: 2500 },
             ],
-            wave1_incoming: [
-                { char: 'IMRAN',  line: "Contact! Six hostiles, northeast treeline.", delay: 0 },
-                { char: 'ARJUN',  line: "I see them.", delay: 2000 },
-                { char: 'KAVYA',  line: "Don't let them near the equipment. Please.", delay: 3500 },
-            ],
-            kavya_discovery: [
-                { char: 'KAVYA',  line: "Captain. I found something inside the relay.", delay: 0 },
-                { char: 'ARJUN',  line: "Talk to me.", delay: 2500 },
-                { char: 'KAVYA',  line: "Someone has been collecting our response data. Every transmission we've made. Someone has been listening.", delay: 5000 },
-                { char: 'MEERA',  line: "That's not possible. This is an encrypted military channel.", delay: 12000 },
-                { char: 'KAVYA',  line: "Was encrypted. Past tense.", delay: 15000 },
+            terminalAccessed: [
+                { char: 'ARJUN',  line: "Transmissions are encrypted. Someone has been altering orders sent to military units.", delay: 0 },
+                { char: 'MEERA',  line: "That's impossible. Only internal command has those encryption keys.", delay: 3500 },
+                { char: 'ARJUN',  line: "Then someone inside intelligence is feeding them.", delay: 6500 },
             ],
             debrief: [
-                { char: 'VIKRAM', line: "How long had they been inside our network?", delay: 0 },
-                { char: 'KAVYA',  line: "Based on the data logs... six months.", delay: 4000 },
-                { char: 'VIKRAM', line: "Six months.", delay: 8000 },
-                { char: 'MEERA',  line: "Every operation. Every response. Whoever this is — they know us.", delay: 10000 },
+                { char: 'ARJUN',  line: "Meera... my own mission orders came through this channel.", delay: 0 },
+                { char: 'MEERA',  line: "Rathore, stay calm. We need to verify everything.", delay: 3000 },
             ],
         },
-        contextualLines: {
-            playerIdleTooLong: [
-                { char: 'KAVYA', line: "Still working here. Still very much alive. Both great things." },
-                { char: 'IMRAN', line: "Don't relax. Second wave is coming." },
-            ],
-        },
+
         targetProfile: {
-            name: 'RELAY STATION ALPHA',
-            alias: 'Indian Army Signal Relay A-7',
-            description: 'Mountain communications relay. Critical for northern sector coordination. Currently compromised.',
-            threat: 'N/A',
+            name: 'COMPROMISED RELAY TERMINAL',
+            alias: 'Node 03',
+            description: 'Legacy relay feeding altered orders to active Indian military units.',
+            threat: 'HIGH',
             status: 'COMPROMISED',
-            notes: 'Kavya has identified intrusion signatures matching previous Architect patterns.',
+            notes: 'Confirms internal intelligence leaks.',
         },
     },
 
     // ═══════════════════════════════════════════════════════════════════════════
-    // MISSION 04 — THE INFORMANT
+    // MISSION 04 — WHITEOUT
     // ═══════════════════════════════════════════════════════════════════════════
     {
         id: 'M04',
         index: 3,
-        codename: 'THE INFORMANT',
-        title: 'OPERATION: THE INFORMANT',
-        chapter: 'CHAPTER 4 — THE MISSING PIECE',
-        location: 'REMOTE SETTLEMENT, NORTHERN INDIA',
+        codename: 'WHITEOUT',
+        title: 'OPERATION: WHITEOUT',
+        chapter: 'CHAPTER 4 — ALONE IN THE STORM',
+        location: 'HIGH-ALTITUDE MOUNTAIN PASS',
         environment: 'HIMALAYAN_SNOW',
         unlocked: false,
         completed: false,
         playerChoice: null,
 
         briefing: [
-            'Following Tara\'s appearance at the Mission 1 compound.',
-            'Intelligence suggests she may still be in the region.',
-            'This is an investigation mission — no immediate combat.',
-            'Observe. Follow. Listen.',
-            'Find Tara. Understand what she knows.',
+            'Severe high-altitude blizzard disables all comms and satellite support.',
+            'Arjun is isolated in whiteout weather.',
+            'Navigate pass using survival tracking skills.',
+            'Identify mysterious operator tracking Arjun\'s route.',
         ],
 
         primaryObjectives: [
-            { id: 'enter_settlement',   title: 'Enter Settlement',            desc: 'Move into the remote settlement on foot. Low profile.' },
-            { id: 'find_tara_clues',    title: 'Find Tara\'s Trail',          desc: 'Locate three evidence points left by Tara inside the settlement.' },
-            { id: 'contact_tara',       title: 'Make Contact with Tara',      desc: 'Wait at the designated location for Tara to approach.' },
-            { id: 'receive_intel',      title: 'Receive Intelligence',        desc: 'Listen to Tara\'s information about The Architect.' },
-            { id: 'protect_tara',       title: 'Cover Tara\'s Escape',        desc: 'Provide overwatch while Tara safely leaves the settlement.' },
-            { id: 'extract_m04',        title: 'Reach Extraction',            desc: 'Move to extraction before hostile follow-up patrols close in.' },
+            { id: 'survive_pass',      title: 'High-Altitude Survival',        desc: 'Navigate low visibility mountain pass.' },
+            { id: 'track_operator',    title: 'Track Shadow Operator',         desc: 'Follow footprints of operator following your movement.' },
+            { id: 'recover_belongings',title: 'Investigate Missing Soldier',   desc: 'Inspect personal belongings found in snow shelter.' },
+            { id: 'restore_comms',     title: 'Restore Emergency Beacon',      desc: 'Climb to high spire and re-establish radio contact.' },
         ],
         optionalObjectives: [
-            { id: 'photograph_evidence', title: 'Document Evidence',       desc: 'Photograph Tara\'s hidden intelligence cache for Meera.' },
+            { id: 'conserve_supplies', title: 'Resource Efficiency', desc: 'Navigate storm without using thermal vision aids.' },
         ],
 
         storyBeats: {
             opening: [
-                { char: 'MEERA',  line: "Tara was our best contact in this region. If she's alive and operating independently, she's doing it for a reason.", delay: 0 },
-                { char: 'ARJUN',  line: "Or she's been turned.", delay: 5000 },
-                { char: 'MEERA',  line: "I've considered that.", delay: 7000 },
-                { char: 'IMRAN',  line: "So what do we do if she has been?", delay: 9000 },
-                { char: 'ARJUN',  line: "We find out first.", delay: 11500 },
+                { char: 'SYSTEM', line: "[ WARNING: COMMS LINK LOST — WHITEOUT CONDITIONS ]", delay: 0 },
+                { char: 'ARJUN',  line: "Comms dead. I'm on my own.", delay: 2500 },
             ],
-            tara_contact: [
-                { char: 'TARA',   line: "You shouldn't have come.", delay: 0 },
-                { char: 'ARJUN',  line: "You disappeared.", delay: 2000 },
-                { char: 'TARA',   line: "I was trying to find out who was giving the orders.", delay: 4000 },
-                { char: 'ARJUN',  line: "And?", delay: 7500 },
-                { char: 'TARA',   line: "The man you're looking for doesn't work alone.", delay: 9000 },
-                { char: 'TARA',   line: "He works from the outside. He uses people. Turns systems against themselves.", delay: 13000 },
-                { char: 'ARJUN',  line: "Does he have a name?", delay: 18000 },
-                { char: 'TARA',   line: "Only one they use. The Architect.", delay: 21000 },
+            findingBelongings: [
+                { char: 'ARJUN',  line: "Found a pack... military issue. A photograph of a soldier with his family.", delay: 0 },
+                { char: 'ARJUN',  line: "This conflict is spreading far beyond the frontline.", delay: 3500 },
             ],
-            debrief: [
-                { char: 'MEERA',  line: "The Architect. No identity. No face. No location.", delay: 0 },
-                { char: 'KAVYA',  line: "But he has a pattern. And now we have a name.", delay: 5000 },
-                { char: 'VIKRAM', line: "Find him.", delay: 9000 },
+            commsRestored: [
+                { char: 'ARJUN',  line: "Beacon active. Meera, do you copy?", delay: 0 },
+                { char: 'MEERA',  line: "Arjun... thank god. Listen to me... come home.", delay: 2500 },
+                { char: 'ARJUN',  line: "Meera? Signal is cutting out again—", delay: 5000 },
+                { char: 'SYSTEM', line: "[ TRANSMISSION TERMINATED ]", delay: 7000 },
             ],
         },
-        contextualLines: {
-            playerIdleTooLong: [
-                { char: 'IMRAN', line: "No shooting. This is a listening mission. Try that." },
-            ],
-        },
+
         targetProfile: {
-            name: 'TARA',
-            alias: 'Field Contact: Tara',
-            description: 'Former intelligence contact, missing for three months. Reappeared at Mission 1 compound. True allegiance unclear.',
-            threat: 'UNKNOWN',
-            status: 'ACTIVE — UNCONFIRMED',
-            notes: 'If she has not been turned, she may be our most valuable asset.',
+            name: 'UNKNOWN TRACKER',
+            alias: 'Shadow Operator',
+            description: 'Sole operator following Arjun through blizzard conditions.',
+            threat: 'MEDIUM',
+            status: 'UNKNOWN',
+            notes: 'Pacing suggests keeping distance rather than engaging.',
         },
     },
 
     // ═══════════════════════════════════════════════════════════════════════════
-    // MISSION 05 — DESERT WATCH
+    // MISSION 05 — THE INFORMANT
     // ═══════════════════════════════════════════════════════════════════════════
     {
         id: 'M05',
         index: 4,
-        codename: 'DESERT WATCH',
-        title: 'OPERATION: DESERT WATCH',
-        chapter: 'CHAPTER 5 — THE MISDIRECTION',
-        location: 'FICTIONAL WESTERN DESERT SECTOR, INDIA',
-        environment: 'DESERT',
+        codename: 'THE INFORMANT',
+        title: 'OPERATION: THE INFORMANT',
+        chapter: 'CHAPTER 5 — SHADOWS IN THE VILLAGE',
+        location: 'REMOTE MOUNTAIN VILLAGE',
+        environment: 'HIMALAYAN_SNOW',
         unlocked: false,
         completed: false,
         playerChoice: null,
 
         briefing: [
-            'A convoy has been spotted moving through the western desert.',
-            'Intel suggests weapons shipment.',
-            'Long-range observation mission in extreme heat.',
-            'Moving targets at distance — patience required.',
-            'CAUTION: Previous mission pattern suggests this may be another decoy.',
+            'Locate Tara in a remote Himalayan mountain village.',
+            'Discover why she went missing and her relationship with Kabir.',
+            'Conduct village surveillance and protective overwatch.',
+            'Make pivotal decision: Extract Tara OR follow her to Kabir.',
         ],
 
         primaryObjectives: [
-            { id: 'reach_desert_ridge',  title: 'Reach Desert Ridge',         desc: 'Climb to the elevated ridge overlooking the desert valley.' },
-            { id: 'track_convoy_desert', title: 'Track Convoy Movement',      desc: 'Observe convoy through heat distortion. Note vehicle types and cargo.' },
-            { id: 'identify_decoy',      title: 'Identify the Decoy',         desc: 'Determine which convoy element is the genuine operation.' },
-            { id: 'mark_real_target',    title: 'Mark the Real Target',       desc: 'Mark the actual operative vehicle for extraction team.' },
-            { id: 'extract_m05',         title: 'Reach Extraction',           desc: 'Move to the desert extraction point before sandstorm window closes.' },
+            { id: 'village_surveillance',title: 'Village Surveillance',         desc: 'Locate Tara in remote settlement without disturbing locals.' },
+            { id: 'confront_tara',      title: 'Confront Tara',                desc: 'Speak with Tara to learn the truth about informant network.' },
+            { id: 'major_choice_m05',   title: 'Major Decision',               desc: 'Extract Tara immediately OR Follow her to Kabir.' },
+            { id: 'follow_or_extract',  title: 'Execute Choice',               desc: 'Complete selected path to reveal hidden communication hub.' },
         ],
         optionalObjectives: [
-            { id: 'count_all_vehicles', title: 'Full Convoy Census', desc: 'Identify and count every vehicle in the convoy — valuable for pattern analysis.' },
+            { id: 'protect_civilians', title: 'Civilian Overwatch', desc: 'Prevent hostile patrols from harassing village residents.' },
         ],
 
         storyBeats: {
             opening: [
-                { char: 'IMRAN',  line: "Hot. Very hot. Who approved a desert deployment?", delay: 0 },
-                { char: 'ARJUN',  line: "You volunteered.", delay: 2500 },
-                { char: 'IMRAN',  line: "I don't remember that conversation.", delay: 4500 },
-                { char: 'MEERA',  line: "The convoy appeared at 0400. Fourteen vehicles. But the pattern is familiar.", delay: 7000 },
-                { char: 'ARJUN',  line: "Another decoy.", delay: 11000 },
-                { char: 'MEERA',  line: "Maybe. Maybe not. Watch carefully this time.", delay: 13000 },
+                { char: 'ARJUN',  line: "Tara. You're alive.", delay: 0 },
+                { char: 'TARA',   line: "I never betrayed India, Arjun. I disappeared because someone used informants to manipulate both sides.", delay: 2500 },
+                { char: 'TARA',   line: "Kabir found out too. We've been investigating independently.", delay: 6000 },
             ],
-            heat_shimmer: [
-                { char: 'IMRAN',  line: "The heat's bending everything. Adjust for mirage — your target is probably closer than it looks.", delay: 0 },
+            choiceExtract: [
+                { char: 'ARJUN',  line: "I'm extracting you right now, Tara. It's not safe.", delay: 0 },
+                { char: 'TARA',   line: "You're missing the bigger picture, Arjun!", delay: 2500 },
             ],
-            real_op_found: [
-                { char: 'MEERA',  line: "There. Vehicle seven. Civilian registration but military-grade chassis. That's not carrying supplies.", delay: 0 },
-                { char: 'KAVYA',  line: "Electronic emissions from that vehicle — encrypted burst transmissions. They're broadcasting.", delay: 5000 },
-                { char: 'ARJUN',  line: "Broadcasting to who?", delay: 9500 },
-                { char: 'KAVYA',  line: "That's what worries me. The signal is going west.", delay: 11500 },
+            choiceFollow: [
+                { char: 'ARJUN',  line: "Lead me to Kabir. I need answers.", delay: 0 },
+                { char: 'TARA',   line: "Keep up and stay low.", delay: 2000 },
             ],
-            debrief: [
-                { char: 'MEERA',  line: "The real operation wasn't the convoy.", delay: 0 },
-                { char: 'MEERA',  line: "The convoy was there to make us deploy here. While we watched the desert...", delay: 4500 },
-                { char: 'VIKRAM', line: "Something happened somewhere else.", delay: 9000 },
-                { char: 'MEERA',  line: "An encrypted signal appeared near the city. We missed it.", delay: 11500 },
+            kabirDirectContact: [
+                { char: 'KABIR',  line: "You still think you're hunting me, Arjun?", delay: 0 },
+                { char: 'KABIR',  line: "...You're hunting the people who sent you.", delay: 3500 },
             ],
         },
-        contextualLines: {
-            playerIdleTooLong: [
-                { char: 'IMRAN', line: "The convoy won't wait. Neither will the heat." },
-                { char: 'IMRAN', line: "You're squinting, I can tell. Heat shimmer's rough. Keep both eyes open." },
-            ],
-        },
+
         targetProfile: {
-            name: 'UNKNOWN OPERATIVE VEHICLE',
-            alias: 'Desert Convoy — Vehicle Seven',
-            description: 'Civilian-registered vehicle with military-grade chassis. Broadcasting encrypted burst transmissions on western frequency.',
-            threat: 'HIGH',
-            status: 'MOBILE',
-            notes: 'Convoy is a distraction. Real operation is elsewhere.',
+            name: 'TARA',
+            alias: 'Former Informant',
+            description: 'Former Indian informant who faked death after discovering intel manipulation.',
+            threat: 'LOW',
+            status: 'ACTIVE',
+            notes: 'Holds key evidence connecting intelligence command to false flag ops.',
         },
     },
 
     // ═══════════════════════════════════════════════════════════════════════════
-    // MISSION 06 — GHOST SIGNAL
+    // MISSION 06 — BROKEN CHAIN
     // ═══════════════════════════════════════════════════════════════════════════
     {
         id: 'M06',
         index: 5,
-        codename: 'GHOST SIGNAL',
-        title: 'OPERATION: GHOST SIGNAL',
-        chapter: 'CHAPTER 6 — THE CITY',
-        location: 'FICTIONAL URBAN SECTOR, INDIA',
-        environment: 'URBAN_NIGHT',
+        codename: 'BROKEN CHAIN',
+        title: 'OPERATION: BROKEN CHAIN',
+        chapter: 'CHAPTER 6 — QUESTIONING COMMAND',
+        location: 'MOUNTAIN INTELLIGENCE FACILITY',
+        environment: 'FACILITY',
         unlocked: false,
         completed: false,
         playerChoice: null,
 
         briefing: [
-            'Encrypted signal detected in urban environment.',
-            'Team will work across rooftops, industrial zones and railway infrastructure.',
-            'Civilian presence is HIGH — extreme caution required.',
-            'A difficult choice will arise during the mission.',
-            'Choose wisely. Your decision will have consequences.',
+            'Return to base sector to investigate altered command structure.',
+            'Collect internal evidence without triggering internal security alerts.',
+            'Uncover covert organization manipulating border intelligence.',
         ],
 
         primaryObjectives: [
-            { id: 'reach_rooftop',    title: 'Reach Overwatch Rooftop',   desc: 'Navigate rooftops to gain overwatch position in the industrial district.' },
-            { id: 'trace_signal',     title: 'Trace the Ghost Signal',    desc: 'Use Kavya\'s tracking to locate the encrypted broadcast source.' },
-            { id: 'urban_choice',     title: 'Tactical Decision',         desc: 'Choose: pursue the suspect OR protect the compromised intelligence contact.' },
-            { id: 'extract_m06',      title: 'Reach Extraction',          desc: 'Extract via the railway infrastructure before dawn.' },
+            { id: 'infiltrate_base',   title: 'Covert Facility Infiltration', desc: 'Access command archives undetected.' },
+            { id: 'collect_evidence',  title: 'Collect Evidence',             desc: 'Download logs proving synthetic war escalation.' },
+            { id: 'meera_contact',     title: 'Secret Contact: Meera',        desc: 'Meet Major Meera Sen off-record.' },
+            { id: 'extract_m06',       title: 'Facility Extraction',          desc: 'Evacuate facility with classified files.' },
         ],
         optionalObjectives: [
-            { id: 'photograph_suspect', title: 'Photograph Suspect',   desc: 'Photograph the unidentified operative for Meera\'s database.' },
+            { id: 'no_lethal_guards', title: 'Non-Lethal Approach', desc: 'Avoid killing friendly base guards during infiltration.' },
         ],
 
         storyBeats: {
             opening: [
-                { char: 'KAVYA',  line: "The signal is moving. Whoever's transmitting — they know we're in the city.", delay: 0 },
-                { char: 'IMRAN',  line: "Urban recon. My second favorite after anywhere-that-isn't-the-desert.", delay: 5000 },
-                { char: 'MEERA',  line: "We have a contact inside the district. If they've been compromised, we need to know.", delay: 9000 },
+                { char: 'ARJUN',  line: "Orders have changed. Commands are coming from an unlisted server.", delay: 0 },
+                { char: 'MEERA',  line: "Arjun, do not use official radio channels.", delay: 3000 },
             ],
-            urban_choice_moment: [
-                { char: 'KAVYA',  line: "Arjun — suspect is moving north. I can keep the track but I need you on the signal.", delay: 0 },
-                { char: 'MEERA',  line: "Rathore, our contact is at the market. They're in trouble. Someone flagged them.", delay: 4000 },
-                { char: 'ARJUN',  line: "I can't be in two places.", delay: 9000 },
-                { char: 'VIKRAM', line: "Make the call, Captain.", delay: 11000 },
+            reveal: [
+                { char: 'ARJUN',  line: "They aren't trying to win a battle. They're making both sides believe war is inevitable.", delay: 0 },
             ],
-            chose_suspect: [
-                { char: 'ARJUN',  line: "Pursuing the suspect. Meera — get someone to the contact.", delay: 0 },
-                { char: 'MEERA',  line: "Understood. Move fast.", delay: 2500 },
-            ],
-            chose_contact: [
-                { char: 'ARJUN',  line: "I'm going for the contact. Kavya — hold the signal as long as you can.", delay: 0 },
-                { char: 'KAVYA',  line: "Copy. But Arjun — I'm going to lose him.", delay: 3000 },
-            ],
-            debrief: [
-                { char: 'MEERA',  line: "The signal source was a relay point. Not a person.", delay: 0 },
-                { char: 'KAVYA',  line: "But the transmissions were going somewhere. I traced the last burst.", delay: 5000 },
-                { char: 'KAVYA',  line: "Northeast. Deep forest. That's where the Architect's communications are coming from.", delay: 9000 },
+            newMissionFromMeera: [
+                { char: 'MEERA',  line: "Arjun... I am giving you a new mission off the record. Find Kabir. Not to kill him... to listen to him.", delay: 0 },
             ],
         },
-        contextualLines: {
-            playerIdleTooLong: [
-                { char: 'IMRAN', line: "Urban rooftop. City below. Time moving. Classic." },
-            ],
-        },
+
         targetProfile: {
-            name: 'GHOST SIGNAL SOURCE',
-            alias: 'Architect Relay Point — Urban',
-            description: 'Mobile encrypted broadcast relay. Signal pattern matches previous Architect communications.',
-            threat: 'HIGH',
-            status: 'ACTIVE — MOBILE',
-            notes: 'Choice in this mission affects Mission 7 intel access.',
+            name: 'THE SHADOW ARCHITECT NETWORK',
+            alias: 'Covert Cell',
+            description: 'Internal conspiracy manipulating border intelligence to force open war.',
+            threat: 'CRITICAL',
+            status: 'OPERATIONAL',
+            notes: 'Operates within official military intelligence channels.',
         },
     },
 
     // ═══════════════════════════════════════════════════════════════════════════
-    // MISSION 07 — THE INSIDE MAN
+    // MISSION 07 — THE SHADOW NETWORK
     // ═══════════════════════════════════════════════════════════════════════════
     {
         id: 'M07',
         index: 6,
-        codename: 'THE INSIDE MAN',
-        title: 'OPERATION: THE INSIDE MAN',
-        chapter: 'CHAPTER 7 — THE FALSE TRAIL',
-        location: 'MILITARY INTELLIGENCE COMPOUND, INDIA',
-        environment: 'URBAN_NIGHT',
+        codename: 'THE SHADOW NETWORK',
+        title: 'OPERATION: THE SHADOW NETWORK',
+        chapter: 'CHAPTER 7 — UNLIKELY ALLIES',
+        location: 'REMOTE MOUNTAIN INFRASTRUCTURE',
+        environment: 'MOUNTAIN_PASS',
         unlocked: false,
         completed: false,
         playerChoice: null,
 
         briefing: [
-            'Evidence suggests someone inside our intelligence network is leaking information.',
-            'The Architect knows our moves too accurately.',
-            'This is an investigation mission — no traditional sniper objective.',
-            'OBSERVE. FOLLOW. IDENTIFY. PROTECT. DECIDE.',
-            'WARNING: The obvious answer may be wrong.',
+            'Cooperate with Kabir to locate hidden communications stations across the sector.',
+            'Execute dual-objective long-range overwatch and coordinated sniper tactical movement.',
+            'Discover the origin of Kabir\'s disappearance.',
         ],
 
         primaryObjectives: [
-            { id: 'observe_suspects',   title: 'Observe the Suspects',       desc: 'Watch the three flagged personnel without being noticed.' },
-            { id: 'follow_trail',       title: 'Follow the Evidence Trail',  desc: 'Track the suspicious activity to its source.' },
-            { id: 'identify_innocent',  title: 'Clear the Innocent',         desc: 'Discover that the apparent traitor is being framed.' },
-            { id: 'find_manipulator',   title: 'Find the Real Source',       desc: 'Identify who is actually manipulating the investigation.' },
-            { id: 'extract_m07',        title: 'Secure the Evidence',        desc: 'Recover proof of the manipulation and extract safely.' },
+            { id: 'meet_kabir',         title: 'Coordinated Meeting',         desc: 'Rendezvous with Kabir at ridge vantage point.' },
+            { id: 'dual_overwatch',     title: 'Dual-Objective Overwatch',    desc: 'Cover Kabir as he disables primary node.' },
+            { id: 'defend_node',        title: 'Defensive Combat',            desc: 'Repel enemy strike squad pushing the facility.' },
+            { id: 'extract_m07',        title: 'Tactical Relocation',         desc: 'Move to secondary objective area with Kabir.' },
         ],
         optionalObjectives: [
-            { id: 'protect_suspect',   title: 'Protect the Falsely Accused', desc: 'Ensure the innocent suspect is not harmed during the investigation.' },
+            { id: 'synced_shots', title: 'Synchronized Precision', desc: 'Eliminate twin sniper spots simultaneously with Kabir.' },
         ],
 
         storyBeats: {
             opening: [
-                { char: 'VIKRAM', line: "I don't like this conversation.", delay: 0 },
-                { char: 'MEERA',  line: "Neither do I, sir. But the evidence points inside our network.", delay: 3000 },
-                { char: 'ARJUN',  line: "Who?", delay: 7000 },
-                { char: 'MEERA',  line: "That's what Rathore is going to find out.", delay: 9000 },
+                { char: 'KABIR',  line: "I was ordered to eliminate an informant who knew too much. That informant was Tara.", delay: 0 },
+                { char: 'KABIR',  line: "I refused. And helped her disappear.", delay: 3500 },
             ],
-            innocent_revealed: [
-                { char: 'ARJUN',  line: "This evidence has been placed. Someone put it here.", delay: 0 },
-                { char: 'MEERA',  line: "What?", delay: 3000 },
-                { char: 'ARJUN',  line: "The trail is too clean. Someone wants us to find exactly this.", delay: 5000 },
-                { char: 'IMRAN',  line: "The Architect isn't just collecting data. He's rewriting it.", delay: 10000 },
-            ],
-            debrief: [
-                { char: 'MEERA',  line: "He manipulated our own investigation. Used our process against us.", delay: 0 },
-                { char: 'KAVYA',  line: "He knew exactly how we'd react to this kind of evidence. He's done this before.", delay: 6000 },
-                { char: 'ARJUN',  line: "He's been inside our procedures. Not just our communications.", delay: 12000 },
-                { char: 'VIKRAM', line: "Find him. End this.", delay: 16000 },
+            characterBonding: [
+                { char: 'KABIR',  line: "You and I are not on opposite sides, Arjun. We were simply given different versions of the truth.", delay: 0 },
+                { char: 'ARJUN',  line: "Let's find the true version.", delay: 4000 },
             ],
         },
-        contextualLines: {
-            playerIdleTooLong: [
-                { char: 'IMRAN', line: "Observation takes time. But not this much time." },
-            ],
-        },
+
         targetProfile: {
-            name: 'THE MANIPULATOR',
-            alias: 'Unknown Internal Asset',
-            description: 'Unknown individual with deep knowledge of Indian intelligence investigation procedures. Capable of planting evidence without detection.',
-            threat: 'CRITICAL',
-            status: 'UNIDENTIFIED',
-            notes: 'This is not the Architect directly. This is a subordinate — or another manipulation.',
+            name: 'HIDDEN SIGNAL NODES',
+            alias: 'Sector Broadcasters',
+            description: 'Network of deep-mountain communication relays feeding synthetic alerts.',
+            threat: 'HIGH',
+            status: 'ACTIVE',
+            notes: 'Coordinated destruction required.',
         },
     },
 
     // ═══════════════════════════════════════════════════════════════════════════
-    // MISSION 08 — BLACK MONSOON
+    // MISSION 08 — THE LAST SIGNAL
     // ═══════════════════════════════════════════════════════════════════════════
     {
         id: 'M08',
         index: 7,
-        codename: 'BLACK MONSOON',
-        title: 'OPERATION: BLACK MONSOON',
-        chapter: 'CHAPTER 8 — THE RECORD',
-        location: 'FICTIONAL NORTHEASTERN JUNGLE, INDIA',
-        environment: 'JUNGLE_RAIN',
+        codename: 'THE LAST SIGNAL',
+        title: 'OPERATION: THE LAST SIGNAL',
+        chapter: 'CHAPTER 8 — COUNTDOWN',
+        location: 'HIGH-ALTITUDE COMMUNICATIONS COMPLEX',
+        environment: 'HIMALAYAN_SNOW',
         unlocked: false,
         completed: false,
         playerChoice: null,
 
         briefing: [
-            'Missing military personnel reported in northeastern jungle sector.',
-            'Heavy monsoon rain. Dense forest. Extremely low visibility.',
-            'Search and recover mission.',
-            'Expect underground facility — proceed with extreme caution.',
-            'Whatever you find inside — the Architect has been watching.',
+            'The shadow network activates its final communication sequence.',
+            'If successful, false intelligence will trigger a major military confrontation.',
+            'Large-scale sniper overwatch, long-distance shooting, compound infiltration.',
+            'Major Decision: Destroy equipment immediately OR Investigate signal source first.',
         ],
 
         primaryObjectives: [
-            { id: 'enter_jungle',        title: 'Enter the Jungle Sector',     desc: 'Navigate deep jungle under heavy rain and low visibility.' },
-            { id: 'find_missing',        title: 'Locate Missing Personnel',    desc: 'Search for the missing unit. Follow the signals.' },
-            { id: 'find_facility',       title: 'Discover Underground Facility', desc: 'Locate and breach the hidden underground communications bunker.' },
-            { id: 'recover_records',     title: 'Recover the Records',         desc: 'Download the Architect\'s surveillance files from the facility.' },
-            { id: 'escape_facility',     title: 'Escape Before Shutdown',      desc: 'Extract before the facility\'s automatic lockdown activates.' },
-            { id: 'extract_m08',         title: 'Reach Extraction',            desc: 'Move to the jungle extraction point before hostile teams arrive.' },
+            { id: 'infiltrate_complex', title: 'Complex Infiltration',         desc: 'Navigate heavy enemy patrols around complex.' },
+            { id: 'time_sensitive_op',  title: 'Stop Signal Countdown',        desc: 'Reach central array before timer reaches zero.' },
+            { id: 'major_choice_m08',   title: 'Major Decision',               desc: 'Destroy equipment immediately OR Investigate false intel source.' },
+            { id: 'extract_m08',        title: 'Emergency Extraction',         desc: 'Escape as array overload initiates.' },
         ],
         optionalObjectives: [
-            { id: 'recover_missing_alive', title: 'Recover Personnel Alive', desc: 'Find the missing soldiers before entering the facility.' },
+            { id: 'long_range_mastery', title: 'Extreme Distance Shot', desc: 'Neutralize tower spotter from >600m.' },
         ],
 
         storyBeats: {
             opening: [
-                { char: 'IMRAN',  line: "Rain. Dense jungle. Zero visibility. Perfect conditions.", delay: 0 },
-                { char: 'ARJUN',  line: "Quiet.", delay: 3000 },
-                { char: 'IMRAN',  line: "You know, I was being sincere.", delay: 4500 },
-                { char: 'MEERA',  line: "The missing unit's last signal came from deep inside. They found something.", delay: 7500 },
+                { char: 'MEERA',  line: "The transmission sequence has started! You have four minutes before false orders broadcast across the border!", delay: 0 },
             ],
-            facility_found: [
-                { char: 'KAVYA',  line: "Captain. This is not a natural structure. Someone built this down here. It's... professional.", delay: 0 },
-                { char: 'ARJUN',  line: "How long has it been here?", delay: 5000 },
-                { char: 'KAVYA',  line: "The equipment dates back... years.", delay: 7500 },
+            choiceDestroy: [
+                { char: 'ARJUN',  line: "Destroying the transmitter now!", delay: 0 },
+                { char: 'MEERA',  line: "Signal stopped, but we lost the source data!", delay: 2500 },
             ],
-            records_found: [
-                { char: 'KAVYA',  line: "Arjun. I found something.", delay: 0 },
-                { char: 'ARJUN',  line: "Talk.", delay: 2500 },
-                { char: 'KAVYA',  line: "Every mission. Mission 1. Mission 2. Mission 3. He has files on all of them.", delay: 4000 },
-                { char: 'KAVYA',  line: "He has files... on us. On you. He has been watching you, Arjun. Specifically.", delay: 9000 },
-                { char: 'ARJUN',  line: "Me.", delay: 15000 },
-                { char: 'KAVYA',  line: "You made seven decisions across eight missions. He predicted six of them.", delay: 17000 },
-            ],
-            debrief: [
-                { char: 'MEERA',  line: "He's been profiling you since Mission 1. Not studying India. Studying you.", delay: 0 },
-                { char: 'ARJUN',  line: "Then he knows I'm coming for him.", delay: 7000 },
-                { char: 'MEERA',  line: "He's counting on it.", delay: 9500 },
+            choiceInvestigate: [
+                { char: 'ARJUN',  line: "Accessing signal core first! Downloading full origin logs!", delay: 0 },
+                { char: 'KABIR',  line: "Hurry Arjun! System is counting down!", delay: 2500 },
+                { char: 'ARJUN',  line: "Got it! The source... it's coming from inside our own Himalayan Command Facility!", delay: 5000 },
             ],
         },
-        contextualLines: {
-            playerIdleTooLong: [
-                { char: 'IMRAN', line: "Keep moving. Rain's getting heavier. Tracks won't last much longer." },
-            ],
-        },
+
         targetProfile: {
-            name: 'UNDERGROUND FACILITY',
-            alias: 'Architect Communications Bunker',
-            description: 'Hidden underground communications and data facility. Contains surveillance records spanning multiple years.',
-            threat: 'HIGH',
-            status: 'ACTIVE',
-            notes: 'He has been watching Arjun personally. Six out of seven decisions predicted correctly.',
+            name: 'HIGH-ALTITUDE TRANSMITTER',
+            alias: 'Broadcast Spire',
+            description: 'Massive relay intended to fire false war escalation orders.',
+            threat: 'CRITICAL',
+            status: 'COUNTDOWN ACTIVE',
+            notes: 'Timer: 04:00.',
         },
     },
 
     // ═══════════════════════════════════════════════════════════════════════════
-    // MISSION 09 — THE ARCHITECT
+    // MISSION 09 — TRISHUL
     // ═══════════════════════════════════════════════════════════════════════════
     {
         id: 'M09',
         index: 8,
-        codename: 'THE ARCHITECT',
-        title: 'OPERATION: THE ARCHITECT',
-        chapter: 'CHAPTER 9 — THE CONTACT',
-        location: 'COORDINATES UNKNOWN',
+        codename: 'TRISHUL',
+        title: 'OPERATION: TRISHUL',
+        chapter: 'CHAPTER 9 — THE ARCHITECT REVEALED',
+        location: 'MOUNTAIN COMMAND FACILITY',
         environment: 'FACILITY',
         unlocked: false,
         completed: false,
         playerChoice: null,
 
         briefing: [
-            'The Architect has made direct contact.',
-            'His location has been partially traced.',
-            'This mission is reconnaissance only.',
-            'We are not ready for direct confrontation.',
-            'Understand his position. Prepare for Mission 10.',
+            'Infiltrate mountain command facility to reveal the true architect.',
+            'The enemy commander was only a proxy — the architect is within the intelligence chain.',
+            'High enemy awareness, precision overwatch, target identification.',
+            'Major Decision: Expose the network publicly OR Destroy the network silently.',
         ],
 
         primaryObjectives: [
-            { id: 'reach_transmission', title: 'Reach Transmission Point',   desc: 'Navigate to the location where the Architect\'s signal is strongest.' },
-            { id: 'receive_message',    title: 'Receive the Architect\'s Message', desc: 'The Architect is already aware of your presence.' },
-            { id: 'trace_location',     title: 'Trace His Location',          desc: 'While communicating, use Kavya\'s tools to trace the signal source.' },
-            { id: 'survive_ambush',     title: 'Survive the Response',        desc: 'He will send a response team. Survive and extract.' },
-            { id: 'extract_m09',        title: 'Reach Extraction',            desc: 'Extract with the traced coordinates.' },
+            { id: 'infiltrate_hq',       title: 'Infiltrate HQ Facility',      desc: 'Bypass internal security controls.' },
+            { id: 'identify_architect',  title: 'Target Identification',       desc: 'Identify true mastermind inside command structure.' },
+            { id: 'major_choice_m09',   title: 'Major Decision',               desc: 'Expose network publicly OR Destroy network silently.' },
+            { id: 'extract_m09',        title: 'Exfiltration',                 desc: 'Extract with full documentation.' },
         ],
         optionalObjectives: [
-            { id: 'full_trace',         title: 'Complete Signal Trace',       desc: 'Keep Kavya connected long enough for a full location trace.' },
-        ],
-
-        storyBeats: {
-            architect_contact: [
-                { char: 'ARCHITECT', line: "You spent eight missions trying to find me.", delay: 0 },
-                { char: 'ARJUN',    line: "I know.", delay: 4000 },
-                { char: 'ARCHITECT', line: "I spent eight missions learning you.", delay: 6000 },
-                { char: 'ARJUN',    line: "Then you should know I'm coming.", delay: 10000 },
-                { char: 'ARCHITECT', line: "That's exactly what I wanted.", delay: 13000 },
-            ],
-            architect_reveals: [
-                { char: 'ARCHITECT', line: "You made a decision in Mission 1. Another in Mission 3. Another in Mission 6.", delay: 0 },
-                { char: 'ARCHITECT', line: "Each one exactly as I predicted. You are very consistent, Captain.", delay: 7000 },
-                { char: 'ARJUN',    line: "Then I'll do something unpredictable.", delay: 13000 },
-                { char: 'ARCHITECT', line: "That. Is. Also. Predicted.", delay: 16000 },
-            ],
-            ambush: [
-                { char: 'KAVYA',  line: "Response team incoming! He knew we'd trace him — it's a trap!", delay: 0 },
-                { char: 'IMRAN',  line: "Of course it is. Move! Move!", delay: 3000 },
-            ],
-            debrief: [
-                { char: 'KAVYA',  line: "I got the trace. Partial, but it's enough.", delay: 0 },
-                { char: 'MEERA',  line: "Where?", delay: 3000 },
-                { char: 'KAVYA',  line: "There's a facility. Old. Hidden. That's where the last signal came from.", delay: 5000 },
-                { char: 'VIKRAM', line: "Mission 10. We end this.", delay: 10000 },
-                { char: 'ARJUN',  line: "He'll know we're coming.", delay: 13000 },
-                { char: 'VIKRAM', line: "Then we use that.", delay: 15500 },
-            ],
-        },
-        contextualLines: {
-            playerIdleTooLong: [
-                { char: 'KAVYA', line: "Still holding the trace. Don't let the signal drop." },
-            ],
-        },
-        targetProfile: {
-            name: 'THE ARCHITECT',
-            alias: 'Unknown — No Real Name Confirmed',
-            description: 'Calm. Methodical. Highly intelligent. Operates entirely through prediction and manipulation. Has never been seen directly.',
-            threat: 'CRITICAL',
-            status: 'LOCATED — PARTIALLY',
-            notes: 'He expected this contact. He may be using it to study our response one final time.',
-        },
-    },
-
-    // ═══════════════════════════════════════════════════════════════════════════
-    // MISSION 10 — THE LAST SIGNAL
-    // ═══════════════════════════════════════════════════════════════════════════
-    {
-        id: 'M10',
-        index: 9,
-        codename: 'THE LAST SIGNAL',
-        title: 'OPERATION: THE LAST SIGNAL',
-        chapter: 'CHAPTER 10 — THE CHOICE',
-        location: 'HIDDEN COMMAND FACILITY — LOCATION CLASSIFIED',
-        environment: 'FACILITY',
-        unlocked: false,
-        completed: false,
-        playerChoice: null, // 'ENDING_A', 'ENDING_B', 'ENDING_C'
-
-        briefing: [
-            'The Architect\'s command facility has been located.',
-            'The entire campaign has led to this.',
-            'Infiltrate. Gather intelligence. Identify the Architect.',
-            'Stop the operation.',
-            'Then: make your final decision.',
-            'Every choice you made in this campaign has meaning.',
-        ],
-
-        primaryObjectives: [
-            { id: 'infiltrate',          title: 'Infiltrate the Facility',     desc: 'Enter the hidden command facility without triggering full lockdown.' },
-            { id: 'gather_intel',        title: 'Gather Final Intelligence',   desc: 'Recover the Architect\'s master operation files.' },
-            { id: 'identify_architect',  title: 'Identify the Architect',      desc: 'See his face for the first time.' },
-            { id: 'protect_team_final',  title: 'Protect the Team',            desc: 'Keep Imran, Meera, and Kavya operational throughout the facility.' },
-            { id: 'stop_operation',      title: 'Stop the Operation',          desc: 'Destroy or disable the Architect\'s master control system.' },
-            { id: 'final_choice',        title: 'Final Decision',              desc: 'Choose: complete the mission, pursue the Architect, or save the team.' },
-        ],
-        optionalObjectives: [
-            { id: 'full_team_safe',      title: 'Full Team Extraction',       desc: 'Extract all team members safely.' },
-            { id: 'architect_captured',  title: 'Architect Captured',         desc: 'Bring the Architect in alive.' },
+            { id: 'zero_alerts_m09', title: 'Shadow Master', desc: 'Reach master office without raising base alarm.' },
         ],
 
         storyBeats: {
             opening: [
+                { char: 'ARJUN',  line: "The objective was never territorial conquest. It was escalation.", delay: 0 },
+                { char: 'MEERA',  line: "Create fear, create retaliation, create war... and profit from chaos.", delay: 3500 },
+            ],
+            choicePublic: [
+                { char: 'ARJUN',  line: "Broadcasting files to public and military command channels simultaneously.", delay: 0 },
+                { char: 'MEERA',  line: "It's out in the open. They can't cover this up now.", delay: 3000 },
+            ],
+            choiceSilent: [
+                { char: 'ARJUN',  line: "Erasing all servers and dismantling network quietly.", delay: 0 },
+                { char: 'MEERA',  line: "Silent removal. Clean and effective.", delay: 3000 },
+            ],
+        },
+
+        targetProfile: {
+            name: 'THE ARCHITECT',
+            alias: 'Internal Mastermind',
+            description: 'High-ranking intelligence director operating proxy network.',
+            threat: 'CRITICAL',
+            status: 'UNCOVERED',
+            notes: 'Mastermind of false flag escalation.',
+        },
+    },
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // MISSION 10 — SHADOWS OF INDIA
+    // ═══════════════════════════════════════════════════════════════════════════
+    {
+        id: 'M10',
+        index: 9,
                 { char: 'VIKRAM', line: "Every mission has led here. Every decision. This is the end of it.", delay: 0 },
                 { char: 'ARJUN',  line: "He knows we're coming.", delay: 5000 },
                 { char: 'VIKRAM', line: "Yes.", delay: 7000 },
