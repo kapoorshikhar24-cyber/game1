@@ -641,54 +641,62 @@ export const CAMPAIGN_MISSIONS = [
     {
         id: 'M10',
         index: 9,
-                { char: 'VIKRAM', line: "Every mission has led here. Every decision. This is the end of it.", delay: 0 },
-                { char: 'ARJUN',  line: "He knows we're coming.", delay: 5000 },
-                { char: 'VIKRAM', line: "Yes.", delay: 7000 },
-                { char: 'IMRAN',  line: "And we're going anyway.", delay: 9000 },
-                { char: 'ARJUN',  line: "We're going anyway.", delay: 11500 },
+        codename: 'SHADOWS OF INDIA',
+        title: 'OPERATION: SHADOWS OF INDIA',
+        chapter: 'CHAPTER 10 — THE FINAL SHOT',
+        location: 'HIMALAYAN COMMAND SECTOR',
+        environment: 'HIMALAYAN_SNOW',
+        unlocked: false,
+        completed: false,
+        playerChoice: null,
+
+        briefing: [
+            'Final operation before dawn in Himalayan command sector.',
+            'Arjun, Tara, Kabir, and Meera unite to stop final transmission.',
+            'Operation goes wrong: Kabir delays enemy, Tara handles comms.',
+            'Arjun climbs ridge in snowstorm for final precision shot.',
+            'NO RED MARKER. NO AUTO TARGET. Deduce correct target from campaign intel.',
+        ],
+
+        primaryObjectives: [
+            { id: 'climb_ridge',        title: 'Climb Final Overwatch Ridge', desc: 'Ascend ridge amidst heavy falling snow.' },
+            { id: 'survey_valley',      title: 'Valley Overview',              desc: 'Observe multiple communication structures in valley.' },
+            { id: 'deduce_target',      title: 'Intel Target Deduction',       desc: 'Use campaign knowledge to identify actual broadcast tower (No UI Marker).' },
+            { id: 'fire_final_shot',    title: 'The Final Shot',               desc: 'Take the decisive long-range precision shot.' },
+            { id: 'witness_ending',     title: 'Final Resolution',             desc: 'Observe the aftermath and campaign conclusion.' },
+        ],
+        optionalObjectives: [
+            { id: 'perfect_shot', title: 'First-Try Precision', desc: 'Hit the correct relay target on your first bullet.' },
+        ],
+
+        storyBeats: {
+            opening: [
+                { char: 'KABIR',  line: "I'll hold the valley path! Tara, get to the terminal! Arjun — get to the ridge!", delay: 0 },
+                { char: 'TARA',   line: "Taking control of comms override!", delay: 3000 },
+                { char: 'ARJUN',  line: "Reaching overwatch position now.", delay: 5500 },
             ],
-            architect_identified: [
-                { char: 'KAVYA',  line: "I see him. Arjun — that's him. That's the Architect.", delay: 0 },
-                { char: 'ARJUN',  line: "Got him.", delay: 3000 },
-                { char: 'MEERA',  line: "He's looking right at the camera. He knew we'd reach this room.", delay: 5000 },
+            ridgePosition: [
+                { char: 'ARJUN',  line: "Snow is heavy. Multiple towers in the valley.", delay: 0 },
+                { char: 'MEERA',  line: "No automated markers available, Arjun. Use the intelligence gathered across all missions.", delay: 3000 },
+                { char: 'ARJUN',  line: "I see it. Tower Three... matches the buried frequency signature.", delay: 7000 },
             ],
-            final_choice_prompt: [
-                { char: 'VIKRAM', line: "Rathore. Operation is complete. The facility is compromised. Get your team out.", delay: 0 },
-                { char: 'IMRAN',  line: "Arjun — he's moving. If you go now—", delay: 5000 },
-                { char: 'KAVYA',  line: "Team is pinned down in Section C. We need extraction.", delay: 8000 },
-                { char: 'ARJUN',  line: "...", delay: 11000 },
-            ],
-            ending_A: [
-                { char: 'ARJUN',  line: "Extracting with team. Mission complete.", delay: 0 },
-                { char: 'IMRAN',  line: "Smart call.", delay: 3000 },
-                { char: 'MEERA',  line: "The operation is stopped. He'll rebuild, but not here. Not now.", delay: 5500 },
-                { char: 'ARJUN',  line: "Then we'll be ready when he does.", delay: 11000 },
-            ],
-            ending_B: [
-                { char: 'ARJUN',  line: "I'm going after him. Imran — get them out.", delay: 0 },
-                { char: 'IMRAN',  line: "Arjun—", delay: 2000 },
-                { char: 'ARJUN',  line: "That's an order, Imran.", delay: 3500 },
-            ],
-            ending_C: [
-                { char: 'ARJUN',  line: "He gets away. My team comes home. Every time.", delay: 0 },
-                { char: 'KAVYA',  line: "Rathore...", delay: 3000 },
-                { char: 'ARJUN',  line: "Move. Now.", delay: 4500 },
-                { char: 'IMRAN',  line: "Follow the captain!", delay: 6000 },
+            finalShotTaken: [
+                { char: 'SYSTEM', line: "[ FINAL PRECISION SHOT FIRED — TRANSMISSION CEASED ]", delay: 0 },
+                { char: 'MEERA',  line: "Arjun... it's over.", delay: 3000 },
+                { char: 'ARJUN',  line: "No. It's only quiet.", delay: 5500 },
+                { char: 'TARA',   line: "Sometimes that's enough.", delay: 8000 },
             ],
         },
-        contextualLines: {
-            playerIdleTooLong: [
-                { char: 'IMRAN', line: "This is it, Arjun. Let's finish it." },
-            ],
-        },
+
         targetProfile: {
-            name: 'THE ARCHITECT',
-            alias: 'Unknown Real Identity',
-            description: 'Male. Middle-aged. Calm. Methodical. Has evaded identification for the entire campaign. He will not run. He has already planned for your arrival.',
+            name: 'PRIMARY BROADCAST TOWER',
+            alias: 'Structure 03',
+            description: 'Valley broadcasting tower matching campaign signal telemetry.',
             threat: 'CRITICAL',
-            status: 'LOCATED',
-            notes: 'He is the target. He always was.',
+            status: 'TERMINATED',
+            notes: 'Requires manual intelligence identification by player.',
         },
+    },
 
         endings: {
             ENDING_A: {
