@@ -17,69 +17,131 @@
 <body>
     <div id="game-container">
         
-        <!-- Main Menu -->
+        <!-- Main Menu / AAA Login Screen -->
         <div id="main-menu" class="menu-overlay cinematic-menu">
-            <div class="menu-content mil-panel" style="padding: 50px; background: rgba(5, 8, 6, 0.95) !important;">
-                <div class="mil-corner top-l"></div><div class="mil-corner top-r"></div>
-                <div class="mil-corner bot-l"></div><div class="mil-corner bot-r"></div>
-                
-                <h1 class="title" style="letter-spacing: 5px; color: #e5e7eb;">ELITE SNIPER</h1>
-                <div style="color: #d97706; font-size: 1.2rem; letter-spacing: 6px; margin-top: -10px; margin-bottom: 6px; text-shadow: 0 0 10px rgba(217, 119, 6, 0.5);">SHADOWS OF INDIA</div>
-                <div style="color: #9ca3af; font-size: 0.75rem; letter-spacing: 3px; margin-bottom: 30px; opacity: 0.8;">CAPTAIN ARJUN RATHORE · RECON &amp; PRECISION OPERATIONS</div>
-                
-                <div class="menu-graphic" style="
-                    opacity: 0.95; margin: 30px 0;
-                    background: radial-gradient(circle, rgba(16,36,25,0.85) 0%, rgba(5,10,8,0.95) 100%);
-                    border: 1px dashed rgba(34, 197, 94, 0.3);
-                    border-radius: 8px;
-                    padding: 15px;
-                    position: relative;
-                    overflow: hidden;
-                    box-shadow: inset 0 0 20px rgba(34,197,94,0.1);
-                ">
-                    <!-- Blueprint Grid lines -->
-                    <div style="position: absolute; inset:0; background-image: linear-gradient(rgba(34,197,94,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(34,197,94,0.03) 1px, transparent 1px); background-size: 15px 15px;"></div>
-                    
-                    <svg viewBox="0 0 440 100" class="rifle-svg" aria-hidden="true" style="position: relative; z-index:2; filter: drop-shadow(0 0 6px rgba(34,197,94,0.4));">
-                        <!-- SVD Rifle Outline (High Tech Blueprint Style) -->
-                        <path d="M10,62 L55,62 L65,55 L75,55 L75,75 L55,75 L45,80 L15,80 Z" fill="none" stroke="#22c55e" stroke-width="1.2"/>
-                        <path d="M65,52 L75,52 L75,58 L220,58 L220,50 L385,50 L390,50 L390,44 L395,44 L395,58 L390,58 L390,62 L220,62 L220,68 L80,68 L75,62 L65,62 Z" fill="none" stroke="#22c55e" stroke-width="1.2"/>
-                        <path d="M385,50 L430,51 L430,57 L385,58 Z" fill="none" stroke="#22c55e" stroke-width="1.2"/>
-                        <path d="M426,48 L436,48 L436,60 L426,60 Z" fill="none" stroke="#22c55e" stroke-width="1.2"/>
-                        <rect x="130" y="38" width="100" height="14" rx="4" fill="none" stroke="#22c55e" stroke-width="1.2"/>
-                        <circle cx="138" cy="45" r="5" fill="none" stroke="#22c55e" stroke-width="0.8"/>
-                        <circle cx="222" cy="45" r="5" fill="none" stroke="#22c55e" stroke-width="0.8"/>
-                        <rect x="153" y="36" width="8" height="18" rx="2" fill="none" stroke="#22c55e" stroke-width="1.2"/>
-                        <rect x="200" y="36" width="8" height="18" rx="2" fill="none" stroke="#22c55e" stroke-width="1.2"/>
-                        <line x1="370" y1="62" x2="360" y2="85" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round"/>
-                        <line x1="380" y1="62" x2="390" y2="85" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round"/>
-                        <path d="M270,58 L285,58 L290,80 L265,80 Z" fill="none" stroke="#22c55e" stroke-width="1.2"/>
-                    </svg>
-                    <!-- Blueprint annotations -->
-                    <div style="position: absolute; bottom: 8px; left: 12px; font-size: 0.52rem; color: #22c55e; opacity: 0.7; letter-spacing: 1px; z-index:2;">
-                        SYSTEM: SVD DRAGUNOV SNIPER RIFLE | CALIBER: 7.62×54mmR
+            <div class="aaa-login-container">
+                <!-- Top Header Bar -->
+                <div class="aaa-header">
+                    <div class="aaa-title-group">
+                        <h1 class="aaa-main-title">ELITE SNIPER</h1>
+                        <div class="aaa-subtitle">SHADOWS OF INDIA</div>
+                        <div class="aaa-tagline">CAPTAIN ARJUN RATHORE · RECON &amp; PRECISION OPERATIONS</div>
                     </div>
-                    <div style="position: absolute; top: 8px; right: 12px; font-size: 0.52rem; color: #22c55e; opacity: 0.7; letter-spacing: 1px; z-index:2;">
-                        OPTICS: PSO-1M2-1 (4X24)
+                    <div class="aaa-header-controls">
+                        <button class="aaa-icon-btn" title="Settings">⚙</button>
+                        <button class="aaa-icon-btn" title="Profile">👤</button>
+                        <button class="aaa-icon-btn" title="Power">⏻</button>
                     </div>
                 </div>
-                
-                <div style="font-size: 0.7rem; color: #6b7280; letter-spacing: 2px; margin-bottom: 8px;">SELECT OPERATIONAL PARAMETERS</div>
-                <div id="difficulty-selector" style="margin-bottom: 30px; display: flex; justify-content: center; gap: 12px;">
-                    <button class="btn diff-btn" data-diff="ROOKIE" id="diff-rookie">RECRUIT</button>
-                    <button class="btn diff-btn selected" data-diff="REGULAR" id="diff-regular" style="border-color:#d97706; color:#d97706; box-shadow: 0 0 10px rgba(217, 119, 6, 0.2);">PROFESSIONAL</button>
-                    <button class="btn diff-btn" data-diff="ELITE" id="diff-elite">ELITE</button>
+
+                <!-- Middle Content Grid -->
+                <div class="aaa-grid">
+                    <!-- Left Column: Operator Telemetry Widget -->
+                    <div class="aaa-panel aaa-operator-panel">
+                        <div class="aaa-panel-header">
+                            <span class="aaa-badge">OPERATOR</span>
+                        </div>
+                        <div class="aaa-telemetry-row">
+                            <span class="aaa-label">NAME:</span>
+                            <span class="aaa-val">CAPT. ARJUN RATHORE</span>
+                        </div>
+                        <div class="aaa-telemetry-row">
+                            <span class="aaa-label">CALLSIGN:</span>
+                            <span class="aaa-val highlight-amber">RAVEN-1</span>
+                        </div>
+                        <div class="aaa-divider"></div>
+                        <div class="aaa-telemetry-row">
+                            <span class="aaa-label">LOCATION:</span>
+                            <span class="aaa-val">NORTHERN HIMALAYAS, INDIA</span>
+                        </div>
+                        <div class="aaa-telemetry-row">
+                            <span class="aaa-label">WEATHER:</span>
+                            <span class="aaa-val">-6°C / FOGGY</span>
+                        </div>
+                    </div>
+
+                    <!-- Center Area Spacer for Background Imagery -->
+                    <div class="aaa-center-spacer"></div>
+
+                    <!-- Right Column: SVD Dragunov Weapon Dossier -->
+                    <div class="aaa-panel aaa-weapon-panel">
+                        <div class="aaa-panel-header">
+                            <div>
+                                <div class="aaa-weapon-name">SVD DRAGUNOV</div>
+                                <div class="aaa-weapon-type">SNIPER RIFLE</div>
+                            </div>
+                        </div>
+                        <div class="aaa-weapon-spec">
+                            <span>CALIBER</span><span>7.62 × 54mmR</span>
+                        </div>
+                        <div class="aaa-weapon-spec">
+                            <span>MAGAZINE</span><span>10 ROUNDS</span>
+                        </div>
+                        <div class="aaa-weapon-spec">
+                            <span>EFFECTIVE RANGE</span><span>1200 m</span>
+                        </div>
+                        <div class="aaa-weapon-spec">
+                            <span>OPTICS</span><span>PSO-1M2-1 (4x24)</span>
+                        </div>
+                    </div>
                 </div>
-                
-                <div style="display:flex; gap:16px; justify-content:center; margin-bottom:20px;">
-                    <button id="btn-start" class="btn" style="font-size: 1.5rem; padding: 12px 40px;">▶ MISSION 01</button>
-                    <button id="btn-campaign" class="btn" style="font-size: 1.1rem; padding: 12px 28px; border-color:#22c55e; color:#22c55e; background:rgba(34,197,94,0.08);">🗺 CAMPAIGN MAP</button>
+
+                <!-- Operational Parameters Header -->
+                <div class="aaa-param-title">SELECT OPERATIONAL PARAMETERS</div>
+
+                <!-- Difficulty Cards Grid -->
+                <div id="difficulty-selector" class="aaa-diff-grid">
+                    <div class="aaa-diff-card diff-btn" data-diff="ROOKIE" id="diff-rookie">
+                        <div class="aaa-diff-title">RECRUIT</div>
+                        <div class="aaa-diff-sub">LEARN THE BASICS</div>
+                    </div>
+                    <div class="aaa-diff-card diff-btn selected" data-diff="REGULAR" id="diff-regular">
+                        <div class="aaa-diff-title">PROFESSIONAL</div>
+                        <div class="aaa-diff-sub">FOR EXPERIENCED OPERATORS</div>
+                    </div>
+                    <div class="aaa-diff-card diff-btn" data-diff="ELITE" id="diff-elite">
+                        <div class="aaa-diff-title">ELITE</div>
+                        <div class="aaa-diff-sub">MAXIMUM REALISM</div>
+                    </div>
                 </div>
-                
-                <div class="controls-list">
-                    <p>WASD: Move | MOUSE: Aim | L-CLICK: Fire | R-CLICK: Scope</p>
-                    <p>SHIFT: Hold Breath | Q: Swap Weapon | H: Toggle HUD | ESC: Pause</p>
-                    <p>CTRL/C: Stance | SCROLL: Zoom | F: Binoculars | T: Tactical Tablet</p>
+
+                <!-- Deployment Action Buttons -->
+                <div class="aaa-action-grid">
+                    <button id="btn-start" class="aaa-btn aaa-btn-deploy">
+                        <span class="aaa-play-icon">▶</span>
+                        <div class="aaa-btn-text">
+                            <div class="aaa-btn-title">MISSION 01</div>
+                            <div class="aaa-btn-sub">OPERATION TRISHUL SHADOW</div>
+                        </div>
+                    </button>
+                    <button id="btn-campaign" class="aaa-btn aaa-btn-map">
+                        <span class="aaa-map-icon">🗺</span>
+                        <div class="aaa-btn-text">
+                            <div class="aaa-btn-title">CAMPAIGN MAP</div>
+                            <div class="aaa-btn-sub">VIEW OPERATION THEATER</div>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Controls Quick Reference Bar -->
+                <div class="aaa-controls-bar">
+                    <span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> MOVE</span>
+                    <span><kbd>R-CLICK</kbd> SCOPE</span>
+                    <span><kbd>L-CLICK</kbd> FIRE</span>
+                    <span><kbd>SHIFT</kbd> HOLD BREATH</span>
+                    <span><kbd>Q</kbd> SWAP WEAPON</span>
+                    <span><kbd>T</kbd> TABLET</span>
+                    <span><kbd>ESC</kbd> PAUSE</span>
+                </div>
+
+                <!-- Footer Status Bar -->
+                <div class="aaa-footer">
+                    <div class="aaa-footer-left">
+                        <span class="aaa-status-dot">●</span> RAVEN-1 · COMMS SECURE · ENCRYPTION: ACTIVE
+                    </div>
+                    <div class="aaa-footer-right">
+                        "IN THE SILENCE WE OBSERVE. IN THE SHADOWS WE PROTECT." — INDIAN ARMY RECON DOCTRINE
+                    </div>
                 </div>
             </div>
         </div>
