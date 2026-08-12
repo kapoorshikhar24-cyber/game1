@@ -1,0 +1,204 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #050a0f;
+    font-family: 'Inter', sans-serif;
+    color: #e0e0e0;
+}
+
+#game-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* Subtle CRT or scanline effect could go here */
+}
+
+#ui-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Let clicks pass through to canvas */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.hud-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10, 20, 30, 0.7);
+    border: 1px solid #1a3c34;
+    border-radius: 8px;
+    padding: 15px 25px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 20px rgba(0, 255, 128, 0.1);
+}
+
+.hud-header h1 {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    color: #00ff88;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    margin: 0;
+}
+
+.hud-header h1 span {
+    font-weight: 300;
+    font-size: 1rem;
+    color: #88a096;
+    margin-left: 10px;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.dot.online {
+    background-color: #00ff88;
+    box-shadow: 0 0 10px #00ff88;
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+.hud-panel {
+    background: rgba(10, 20, 30, 0.85);
+    border: 1px solid #1a3c34;
+    border-left: 4px solid #00ff88;
+    border-radius: 4px;
+    padding: 20px;
+    width: 300px;
+    backdrop-filter: blur(5px);
+    pointer-events: auto; /* Re-enable pointer events for panel */
+    transition: all 0.3s ease;
+}
+
+.hud-panel h2 {
+    color: #00ff88;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+    padding-bottom: 5px;
+}
+
+.unit-stats div {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.unit-stats span {
+    color: #fff;
+    font-weight: 600;
+}
+
+.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+}
+
+.controls-hint {
+    align-self: center;
+    background: rgba(0,0,0,0.6);
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: #a0a0a0;
+    display: flex;
+    gap: 20px;
+}
+
+.controls-hint strong {
+    color: #00ff88;
+}
+
+/* Scanlines */
+.scanlines {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 4px, 3px 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Radar */
+.radar-panel {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    overflow: hidden;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(5, 15, 10, 0.9);
+    border: 2px solid #1a3c34;
+}
+.radar-grid {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    background: radial-gradient(circle, transparent 20%, rgba(0,255,136,0.1) 21%, transparent 22%, transparent 40%, rgba(0,255,136,0.1) 41%, transparent 42%, transparent 60%, rgba(0,255,136,0.1) 61%, transparent 62%, transparent 80%, rgba(0,255,136,0.1) 81%, transparent 82%);
+    position: absolute;
+    top: 0; left: 0;
+}
+.radar-sweep {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 50%; height: 50%;
+    background: linear-gradient(45deg, rgba(0,255,136,0) 0%, rgba(0,255,136,0.5) 100%);
+    transform-origin: 0% 0%;
+    animation: sweep 4s linear infinite;
+    z-index: 2;
+}
+@keyframes sweep {
+    to { transform: rotate(360deg); }
+}
+.radar-label {
+    position: absolute;
+    bottom: 10px;
+    color: #00ff88;
+    font-size: 0.7rem;
+    font-weight: bold;
+    z-index: 3;
+    background: rgba(0,0,0,0.5);
+    padding: 2px 5px;
+    border-radius: 2px;
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Military Tactical Command</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="gameCanvas"></canvas>
+        <div class="scanlines"></div>
+        <div id="ui-overlay">
+            <header class="hud-header">
+                <h1>COMMAND CENTER <span>IND-MILCOM</span></h1>
+                <div class="status-indicator">
+                    <div class="dot online"></div>
+                    <span>SYSTEM ONLINE</span>
+                </div>
+            </header>
+            
+            <div id="selection-panel" class="hud-panel hidden">
+                <h2 id="unit-name">UNIT</h2>
+                <div class="unit-stats">
+                    <div>Type: <span id="unit-type">-</span></div>
+                    <div>Health: <span id="unit-hp">-</span></div>
+                    <div>Status: <span id="unit-status">-</span></div>
+                </div>
+            </div>
+            
+            <div id="radar-panel" class="hud-panel radar-panel">
+                <div class="radar-sweep"></div>
+                <div class="radar-content">
+                    <div class="radar-grid"></div>
+                </div>
+                <div class="radar-label">TACTICAL RADAR</div>
+            </div>
+
+            <div class="controls-hint">
+                <p><strong>LEFT CLICK</strong> or <strong>DRAG</strong> to select units</p>
+                <p><strong>RIGHT CLICK</strong> to issue move order</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/entities.js"></script>
+    <script src="js/renderer.js"></script>
+    <script src="js/input.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

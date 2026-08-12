@@ -1,0 +1,1102 @@
+:root {
+    --bg-charcoal: #0c0f12;
+    --bg-dark-graphite: #14191e;
+    --bg-panel-glass: rgba(15, 20, 25, 0.88);
+    --border-metal: rgba(255, 255, 255, 0.14);
+    --mil-green: #4b6b4e;
+    --mil-green-glow: rgba(75, 107, 78, 0.4);
+    --mil-amber: #e09b3e;
+    --mil-amber-glow: rgba(224, 155, 62, 0.35);
+    --mil-red: #ef4444;
+    --text-primary: #e6edf3;
+    --text-muted: #8b949e;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Share Tech Mono', monospace;
+    background-color: var(--bg-charcoal);
+    color: var(--text-primary);
+    user-select: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#game-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: #05080a;
+}
+
+.ui-element {
+    position: absolute;
+    pointer-events: none;
+}
+
+/* --- MENUS --- */
+.menu-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(8, 12, 15, 0.88);
+    backdrop-filter: blur(12px) saturate(120%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.cinematic-menu {
+    background: radial-gradient(circle at 50% 40%, rgba(20, 32, 28, 0.75) 0%, rgba(8, 12, 15, 0.96) 80%, rgba(4, 6, 8, 1) 100%);
+    box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.95);
+}
+
+.menu-content {
+    text-align: center;
+    border: 1px solid var(--border-metal);
+    background: var(--bg-panel-glass);
+    padding: 45px 50px;
+    border-radius: 6px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.9), inset 0 1px 1px rgba(255,255,255,0.1);
+    pointer-events: auto;
+}
+
+.title {
+    font-size: 3rem;
+    color: var(--text-primary);
+    letter-spacing: 5px;
+    margin-bottom: 8px;
+    text-shadow: 0 0 25px rgba(230, 237, 243, 0.3), 2px 2px 0 #000;
+}
+
+.menu-graphic {
+    margin: 30px 0;
+}
+
+.btn {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.3rem;
+    padding: 14px 36px;
+    background: rgba(27, 34, 42, 0.9);
+    color: var(--text-primary);
+    border: 1px solid var(--border-metal);
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    letter-spacing: 2.5px;
+    border-radius: 3px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:hover {
+    background: var(--mil-amber);
+    color: #000;
+    font-weight: bold;
+    border-color: var(--mil-amber);
+    box-shadow: 0 0 20px var(--mil-amber-glow), 0 4px 16px rgba(0,0,0,0.8);
+    transform: translateY(-1px);
+}
+
+.controls-list {
+    margin-top: 30px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+}
+
+/* --- SCOPE --- */
+#scope-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 10;
+    transition: opacity 0.2s ease-out;
+}
+
+.scope-lens-container {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+}
+
+.scope-vignette {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at 50% 50%, transparent 32.2vh, #000 32.5vh);
+    box-shadow: inset 0 0 40px rgba(0,0,0,1);
+    backdrop-filter: contrast(1.1) brightness(0.95);
+}
+
+.scope-reflection {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 65vh; height: 65vh;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 40%, rgba(59,130,246,0.05) 100%);
+    pointer-events: none;
+}
+
+.reticle-svg {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 65vh; height: 65vh;
+    filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.8)) drop-shadow(-0.5px -0.5px 0.5px rgba(255, 255, 255, 0.4));
+    transition: transform 0.05s ease-out;
+}
+
+.breath-svg {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 22vh; height: 22vh;
+    transition: opacity 0.3s;
+}
+
+.scope-readout {
+    position: absolute;
+    font-size: 1.1rem;
+    color: #e5e7eb;
+    text-shadow: 1px 1.5px 3px #000, 0 0 8px rgba(0,0,0,0.9);
+    letter-spacing: 1.5px;
+}
+
+.scope-readout.top-left { top: 12%; left: 22%; }
+.scope-readout.top-right { top: 12%; right: 22%; }
+.scope-readout.bottom-left { bottom: 12%; left: 22%; }
+.scope-readout.bottom-right { bottom: 12%; right: 22%; }
+
+/* --- UNSCOPED CROSSHAIR --- */
+#crosshair-dot {
+    top: 50%; left: 50%;
+    width: 4px; height: 4px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#hit-marker {
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+}
+
+/* --- MAIN HUD --- */
+#main-hud {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.hud-top-left {
+    position: absolute; top: 30px; left: 30px;
+}
+
+.detection-container {
+    background: rgba(0, 0, 0, 0.65);
+    border: 1px solid #374151;
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    min-width: 180px;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    transition: border-color 0.3s, color 0.3s;
+}
+
+.detection-title {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.detection-bar-bg {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+
+.detection-fill {
+    height: 100%;
+    width: 0%;
+    transition: width 0.15s ease-out, background-color 0.3s;
+}
+
+.detection-container.safe .detection-fill { background-color: #22c55e; }
+.detection-container.safe #detection-status-text { color: #22c55e; }
+
+.detection-container.suspicious .detection-fill { background-color: #eab308; }
+.detection-container.suspicious #detection-status-text { color: #eab308; }
+
+.detection-container.detected .detection-fill { background-color: #f97316; }
+.detection-container.detected #detection-status-text { color: #f97316; }
+
+.detection-container.alert .detection-fill { background-color: #ef4444; }
+.detection-container.alert #detection-status-text { color: #ef4444; animation: pulse-fast 0.5s infinite; }
+
+.detection-meter-text {
+    font-size: 0.8rem;
+    color: #d1d5db;
+    letter-spacing: 2px;
+}
+
+.hud-top-right {
+    position: absolute; top: 30px; right: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.objective-container {
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid #374151;
+    padding: 12px 18px;
+    border-radius: 4px;
+    min-width: 220px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    text-align: left;
+}
+
+.objective-header {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    letter-spacing: 1px;
+}
+
+.objective-title {
+    font-size: 1rem;
+    color: #eab308;
+    margin: 4px 0 8px 0;
+    letter-spacing: 1px;
+}
+
+.objective-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+.objective-list li {
+    margin-bottom: 4px;
+}
+
+.objective-list li.completed { color: #22c55e; }
+.objective-list li.active { color: #eab308; }
+.objective-list li.pending { color: #6b7280; }
+.objective-list li.optional { color: #3b82f6; }
+.objective-list li.failed { color: #ef4444; }
+
+.mission-status-line {
+    margin-top: 8px;
+    font-size: 0.8rem;
+    color: #9ca3af;
+    border-top: 1px stroke #374151;
+    padding-top: 6px;
+}
+
+.hud-operation-title {
+    font-size: 0.85rem;
+    color: #d97706;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    text-shadow: 1px 1px 3px #000;
+}
+
+.objective-marker {
+    position: absolute;
+    color: #eab308;
+    font-size: 1.4rem;
+    z-index: 15;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    text-shadow: 0 0 8px #eab308;
+    animation: pulse-slow 2s infinite;
+}
+
+.objective-marker::after {
+    content: attr(data-dist);
+    display: block;
+    font-size: 0.75rem;
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+    text-align: center;
+    margin-top: 2px;
+    letter-spacing: 1px;
+}
+
+.hud-top-center {
+    position: absolute; top: 30px; left: 50%;
+    transform: translateX(-50%);
+}
+
+.masking-banner {
+    color: #d946ef;
+    border: 1px solid #d946ef;
+    padding: 5px 15px;
+    background: rgba(217, 70, 239, 0.1);
+    animation: pulse-fast 1s infinite;
+}
+
+.hud-bottom-left {
+    position: absolute; bottom: 30px; left: 30px;
+    background: linear-gradient(135deg, #222, #111);
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.06"/></svg>'), linear-gradient(135deg, #2a2a2a, #111);
+    border: 2px solid #333;
+    border-radius: 4px;
+    padding: 15px 20px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 5px 15px rgba(0,0,0,0.8);
+    border-bottom-color: #111;
+    border-right-color: #111;
+}
+
+.health-bar-container {
+    width: 200px; height: 6px;
+    background: rgba(0,0,0,0.8);
+    margin-bottom: 15px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,1);
+    border: 1px solid rgba(255,255,255,0.05);
+}
+/* health-fill styles defined below with gradient version */
+
+.weapon-info {
+    display: flex; align-items: center; gap: 15px;
+}
+.weapon-silhouette svg { opacity: 0.8; filter: drop-shadow(1px 1px 0 rgba(0,0,0,0.8)); }
+.weapon-text { color: #9ca3af; font-size: 1.1rem; text-shadow: 0 0 4px rgba(156, 163, 175, 0.3); }
+.ammo-text { color: #d1d5db; font-size: 1.5rem; text-shadow: 0 0 5px rgba(209, 213, 219, 0.8); }
+
+.hud-bottom-right {
+    position: absolute; bottom: 30px; right: 30px;
+    background: linear-gradient(135deg, #222, #111);
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.06"/></svg>'), linear-gradient(135deg, #2a2a2a, #111);
+    border: 2px solid #333;
+    border-radius: 4px;
+    padding: 10px 15px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 5px 15px rgba(0,0,0,0.8);
+    border-bottom-color: #111;
+    border-right-color: #111;
+}
+
+.compass-container {
+    width: 300px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    color: #9ca3af;
+    background: rgba(0,0,0,0.6);
+    padding: 5px 0;
+    box-shadow: inset 0 0 10px rgba(0,0,0,1);
+    border: 1px solid rgba(255,255,255,0.05);
+    text-shadow: 0 0 4px rgba(156, 163, 175, 0.5);
+}
+.compass-strip {
+    white-space: nowrap;
+    position: relative;
+    left: 0;
+}
+.compass-marker {
+    color: #d97706;
+    margin-top: 2px;
+    text-shadow: 0 0 6px rgba(217, 119, 6, 0.8);
+}
+
+.objective-marker {
+    position: absolute;
+    color: var(--text-primary);
+    text-align: center;
+    font-family: 'Share Tech Mono', monospace;
+    z-index: 25;
+    pointer-events: none;
+    transform: translate(-50%, -100%);
+    transition: opacity 0.2s ease, transform 0.1s ease-out;
+}
+
+.marker-box {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(12, 18, 15, 0.85);
+    border: 1px solid var(--mil-green);
+    padding: 3px 8px;
+    border-radius: 3px;
+    box-shadow: 0 0 12px var(--mil-green-glow);
+}
+
+.marker-symbol {
+    color: var(--mil-amber);
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-shadow: 0 0 8px var(--mil-amber-glow);
+    animation: markerPulse 1.2s infinite alternate;
+}
+
+.marker-title {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: var(--text-primary);
+    text-transform: uppercase;
+}
+
+.marker-dist {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--mil-green);
+    letter-spacing: 2px;
+    text-shadow: 0 0 8px var(--mil-green-glow);
+    margin-top: 3px;
+}
+
+@keyframes markerPulse {
+    from { opacity: 0.7; transform: scale(0.95); }
+    to   { opacity: 1.0; transform: scale(1.1); }
+}
+
+/* Kill Cam Mode */
+body.kill-cam-active canvas {
+    filter: grayscale(80%) contrast(1.2);
+}
+body.kill-cam-active::before, body.kill-cam-active::after {
+    content: '';
+    position: absolute; left: 0; width: 100%; height: 10vh;
+    background: #000; z-index: 50;
+    animation: slideIn 0.3s forwards;
+}
+body.kill-cam-active::before { top: 0; }
+body.kill-cam-active::after { bottom: 0; }
+
+@keyframes slideIn {
+    from { height: 0; } to { height: 12vh; }
+}
+@keyframes pulse-slow {
+    0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; }
+}
+@keyframes pulse-fast {
+    0% { opacity: 1; } 50% { opacity: 0.2; } 100% { opacity: 1; }
+}
+
+/* --- DAMAGE VIGNETTE --- */
+#damage-vignette {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at 50% 50%,
+        transparent 45%,
+        rgba(160, 0, 0, 0.55) 80%,
+        rgba(120, 0, 0, 0.75) 100%);
+    pointer-events: none;
+    z-index: 8;
+    opacity: 0;
+    transition: opacity 0.1s;
+}
+
+/* --- ALERT ICON STATES --- */
+.alert-icon {
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    border: 2px solid;
+    transition: color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.alert-icon.calm {
+    color: #22c55e;
+    border-color: #22c55e;
+    box-shadow: 0 0 6px rgba(34, 197, 94, 0.3);
+}
+.alert-icon.suspicious {
+    color: #eab308;
+    border-color: #eab308;
+    box-shadow: 0 0 8px rgba(234, 179, 8, 0.4);
+    animation: pulse-slow 1.5s infinite;
+}
+.alert-icon.detected {
+    color: #f97316;
+    border-color: #f97316;
+    box-shadow: 0 0 12px rgba(249, 115, 22, 0.5);
+    animation: pulse-slow 1s infinite;
+}
+.alert-icon.alerted {
+    color: #ef4444;
+    border-color: #ef4444;
+    box-shadow: 0 0 16px rgba(239, 68, 68, 0.7);
+    animation: pulse-fast 0.5s infinite;
+}
+
+/* --- PAUSE MENU --- */
+#pause-menu .menu-content {
+    background: rgba(0, 0, 0, 0.88);
+    border-color: #d97706;
+    box-shadow: 0 0 40px rgba(217, 119, 6, 0.25), 0 0 80px rgba(0,0,0,0.9);
+}
+
+/* Health bar — green at full, red at low */
+.health-fill {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, #ef4444 0%, #f97316 40%, #22c55e 100%);
+    background-size: 200% 100%;
+    background-position: right center;
+    transition: width 0.25s ease-out, background-position 0.5s;
+    box-shadow: 0 0 6px rgba(239, 68, 68, 0.4);
+}
+
+/* Low health — bar shifts to red left side */
+.health-fill.low {
+    background-position: left center;
+    animation: pulse-fast 0.8s infinite;
+}
+
+/* ─── Alert Level Text ─────────────────────────────────────────────── */
+#alert-level-text {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 3px;
+    color: #22c55e;
+    text-shadow: 0 0 8px currentColor;
+    transition: color 0.5s ease, text-shadow 0.5s ease;
+}
+
+/* ─── Radio dialogue blink cursor ──────────────────────────────────── */
+@keyframes blink {
+    0%, 100% { opacity: 0.5; }
+    50%       { opacity: 0; }
+}
+
+/* ─── Main Menu title glow ─────────────────────────────────────────── */
+.title {
+    text-shadow: 0 0 20px rgba(156,163,175,0.4), 2px 2px 0 #000;
+}
+
+/* ─── Campaign map scrollbar ───────────────────────────────────────── */
+#campaign-screen ::-webkit-scrollbar { width: 4px; }
+#campaign-screen ::-webkit-scrollbar-track { background: #040a06; }
+#campaign-screen ::-webkit-scrollbar-thumb { background: #1e3a2a; border-radius: 2px; }
+
+/* ─── Cinematic black overlay ──────────────────────────────────────── */
+#cinematic-black {
+    pointer-events: none;
+    z-index: 80;
+}
+
+/* ─── Briefing detail flex ──────────────────────────────────────────── */
+#briefing-detail {
+    overflow-y: auto;
+}
+
+/* ───────────────────────────────────────────────────────────────────── */
+/*  MILITARY DIEGETIC EQUIPMENT UI STYLING                             */
+/* ───────────────────────────────────────────────────────────────────── */
+
+/* Ultra-subtle Phosphor Scanlines for Tactical Displays */
+.military-scanlines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 35;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0) 0px,
+        rgba(0, 0, 0, 0) 2px,
+        rgba(0, 0, 0, 0.08) 3px,
+        rgba(0, 0, 0, 0.08) 4px
+    );
+    opacity: 0.5;
+}
+
+/* Diegetic Optical Helmet Glass Reflection */
+.hud-glass-reflection {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 34;
+    background: radial-gradient(circle at 75% 20%, rgba(255, 255, 255, 0.035) 0%, transparent 45%),
+                linear-gradient(135deg, rgba(255, 255, 255, 0.015) 0%, transparent 30%, rgba(59, 130, 246, 0.012) 75%, transparent 100%);
+    box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.65);
+}
+
+/* MIL-SPEC Corner Bracket Panels */
+.mil-panel {
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    background: radial-gradient(ellipse at top left, rgba(20, 25, 22, 0.92), rgba(8, 12, 10, 0.96)) !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.85), inset 0 0 15px rgba(34, 197, 94, 0.03) !important;
+    backdrop-filter: blur(4px);
+}
+
+.mil-corner {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-color: #d97706;
+    border-style: solid;
+    pointer-events: none;
+}
+.mil-corner.top-l { top: -2px; left: -2px; border-width: 2px 0 0 2px; }
+.mil-corner.top-r { top: -2px; right: -2px; border-width: 2px 2px 0 0; }
+.mil-corner.bot-l { bottom: -2px; left: -2px; border-width: 0 0 2px 2px; }
+.mil-corner.bot-r { bottom: -2px; right: -2px; border-width: 0 2px 2px 0; }
+
+.mil-serial {
+    position: absolute;
+    top: -14px;
+    left: 8px;
+    font-size: 0.55rem;
+    color: #d97706;
+    letter-spacing: 2px;
+    background: #080c0a;
+    padding: 0 4px;
+    border: 1px solid rgba(217, 119, 6, 0.3);
+}
+
+/* Chromatic Aberration & Lens Glare Ring for Scope */
+.scope-glare-ring {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 65.5vh; height: 65.5vh;
+    border-radius: 50%;
+    border: 3px solid rgba(59, 130, 246, 0.25);
+    box-shadow: 
+        0 0 15px rgba(59, 130, 246, 0.3),
+        inset 0 0 25px rgba(234, 179, 8, 0.15);
+    pointer-events: none;
+}
+
+/* Scope Readout MIL-STD Styling */
+.scope-readout {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    color: #22c55e;
+    text-shadow: 0 0 8px rgba(34, 197, 94, 0.7), 1px 1px 2px #000;
+    background: rgba(4, 10, 6, 0.65);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    padding: 3px 8px;
+    border-radius: 2px;
+    letter-spacing: 2px;
+}
+
+/* --- 3D DIEGETIC HELMET VISOR HUD (PROMPT B 3D SPEC) --- */
+
+#main-hud {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+    perspective: 1200px;
+    perspective-origin: 50% 50%;
+    transform-style: preserve-3d;
+    transition: transform 0.08s cubic-bezier(0.1, 0.9, 0.2, 1);
+}
+
+/* 3D Visor Curved Perspective Panels */
+.hud-objective-ticker {
+    position: absolute;
+    top: 35px;
+    left: 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-primary);
+    letter-spacing: 1.5px;
+    background: rgba(10, 14, 12, 0.76);
+    backdrop-filter: blur(8px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 8px 14px;
+    border-radius: 2px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.75), inset 0 0 1px rgba(255, 255, 255, 0.15);
+    transform: rotateY(12deg) rotateX(-6deg) translateZ(15px);
+    transform-origin: left top;
+    transition: opacity 0.4s ease, transform 0.15s ease-out;
+}
+.hud-objective-ticker .op-subhead {
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.hud-objective-ticker .op-title-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid var(--mil-amber);
+    padding-bottom: 4px;
+    margin-bottom: 2px;
+}
+.ticker-symbol {
+    color: var(--mil-amber);
+    animation: markerPulse 1.2s infinite alternate;
+}
+.ticker-title {
+    font-size: 0.82rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    letter-spacing: 2px;
+}
+.hud-objective-ticker .op-distance-row {
+    font-size: 0.75rem;
+    color: var(--mil-amber);
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+/* Compass Top Panel (3D Curved Visor Top Center) */
+.compass-top-panel {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%) rotateX(-12deg) translateZ(20px);
+    transform-origin: center top;
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Share Tech Mono', monospace;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    transition: opacity 0.4s ease, transform 0.15s ease-out;
+}
+.compass-marker-arrow {
+    font-size: 0.65rem;
+    color: var(--mil-amber);
+    margin-bottom: 2px;
+    text-shadow: 0 0 5px var(--mil-amber-glow);
+}
+.compass-container {
+    width: 100%;
+    overflow: hidden;
+    height: 16px;
+    position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+.compass-strip {
+    display: inline-block;
+    white-space: nowrap;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 4px;
+    transition: transform 0.1s ease-out;
+}
+.compass-heading-text {
+    font-size: 0.65rem;
+    letter-spacing: 2.5px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    text-shadow: 1px 1px 2px #000;
+}
+.amber-text {
+    color: var(--mil-amber);
+    font-weight: bold;
+}
+
+/* Alert Top Right (3D Curved Visor Top Right) */
+.alert-top-right {
+    position: absolute;
+    top: 35px;
+    right: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-family: 'Share Tech Mono', monospace;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    transform: rotateY(-12deg) rotateX(-6deg) translateZ(15px);
+    transform-origin: right top;
+    transition: opacity 0.4s ease, transform 0.15s ease-out;
+}
+.alert-status-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.alert-icon {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    border: none;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+.alert-icon.calm {
+    background-color: #22c55e;
+    box-shadow: 0 0 6px rgba(34, 197, 94, 0.6);
+}
+.alert-icon.suspicious {
+    background-color: #eab308;
+    box-shadow: 0 0 8px rgba(234, 179, 8, 0.7);
+    animation: markerPulse 1s infinite alternate;
+}
+.alert-icon.detected {
+    background-color: #f97316;
+    box-shadow: 0 0 10px rgba(249, 115, 22, 0.8);
+    animation: pulse-slow 1s infinite;
+}
+.alert-icon.alerted {
+    background-color: #ef4444;
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.9);
+    animation: pulse-fast 0.5s infinite;
+}
+.alert-dot {
+    display: none;
+}
+.alert-text-val {
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: var(--text-primary);
+    text-shadow: 1px 1px 3px #000;
+}
+.masking-banner {
+    margin-top: 8px;
+    font-size: 0.7rem;
+    color: #d946ef;
+    border: 1px solid rgba(217, 70, 239, 0.4);
+    padding: 3px 10px;
+    background: rgba(217, 70, 239, 0.08);
+    letter-spacing: 1px;
+    animation: pulse-fast 1s infinite;
+}
+
+/* Bottom Left Minimap & Vitals (3D Curved Visor Bottom Left) */
+.hud-status-group-left {
+    position: absolute;
+    bottom: 35px;
+    left: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    transform: rotateY(14deg) rotateX(8deg) translateZ(20px);
+    transform-origin: left bottom;
+    transition: opacity 0.4s ease, transform 0.15s ease-out;
+}
+
+/* Circular Tactical Minimap */
+.minimap-circle-container {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    position: relative;
+    overflow: hidden;
+    background: rgba(10, 14, 12, 0.78);
+    backdrop-filter: blur(8px) saturate(120%);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.8), inset 0 0 12px rgba(255,255,255,0.05);
+}
+.minimap-radar-sweep {
+    position: absolute;
+    inset: 0;
+    background: conic-gradient(from 0deg, rgba(217, 119, 6, 0.12) 0deg, transparent 90deg);
+    animation: radarSweep 4s linear infinite;
+    transform-origin: center;
+}
+@keyframes radarSweep {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+.minimap-radar-grid {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background-image: 
+        radial-gradient(circle, transparent 35%, rgba(255,255,255,0.02) 36%, rgba(255,255,255,0.02) 38%, transparent 39%),
+        linear-gradient(to right, rgba(255,255,255,0.01) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.01) 1px, transparent 1px);
+    background-size: 100% 100%, 12px 12px, 12px 12px;
+    background-position: center;
+}
+.minimap-player-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 3px;
+    height: 3px;
+    background: #fff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 4px #fff;
+}
+.minimap-objective-dot {
+    position: absolute;
+    top: 35%;
+    left: 42%;
+    width: 4px;
+    height: 4px;
+    background: var(--mil-amber);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 5px var(--mil-amber);
+    animation: markerPulse 1.5s infinite alternate;
+}
+
+/* Hairline Status Bars */
+.player-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    width: 68px;
+}
+.status-bar-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.bar-label {
+    font-size: 0.55rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    width: 14px;
+}
+.health-bar-container {
+    flex-grow: 1;
+    height: 2px;
+    background: rgba(0,0,0,0.6);
+    border: none;
+    border-radius: 1px;
+    overflow: hidden;
+}
+.stamina-bar-container {
+    flex-grow: 1;
+    height: 2px;
+    background: rgba(0,0,0,0.6);
+    border: none;
+    border-radius: 1px;
+    overflow: hidden;
+}
+#stamina-fill {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to right, #1d4ed8, #60a5fa);
+    transition: width 0.2s ease, background 0.3s;
+}
+
+.injury-warning-text {
+    display: none;
+    font-size: 0.55rem;
+    color: var(--mil-red);
+    letter-spacing: 1px;
+    animation: pulse-fast 1s infinite;
+}
+
+/* Bottom Right Weapon Readout (3D Curved Visor Bottom Right) */
+.hud-status-group-right {
+    position: absolute;
+    bottom: 35px;
+    right: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+    font-family: 'Share Tech Mono', monospace;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    transform: rotateY(-14deg) rotateX(8deg) translateZ(20px);
+    transform-origin: right bottom;
+    transition: opacity 0.4s ease, transform 0.15s ease-out;
+}
+.weapon-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.weapon-title {
+    font-size: 0.78rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    letter-spacing: 1.5px;
+    text-shadow: 1px 1px 3px #000;
+}
+.suppressor-badge {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+}
+.weapon-divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.15);
+    margin: 2px 0 3px 0;
+}
+.ammo-digits {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+}
+.ammo-num {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    text-shadow: 1px 1px 3px #000;
+}
+.ammo-slash, .ammo-total-val {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-shadow: 1px 1px 3px #000;
+}
+
+/* Global HUD Fade Transitions */
+.hud-objective-ticker.hud-fade-out,
+.compass-top-panel.hud-fade-out,
+.alert-top-right.hud-fade-out,
+.hud-status-group-left.hud-fade-out,
+.hud-status-group-right.hud-fade-out {
+    opacity: 0 !important;
+    pointer-events: none;
+}
+.hud-status-group-left.hud-fade-out {
+    transform: translateY(10px);
+}
+.hud-status-group-right.hud-fade-out {
+    transform: translateY(10px);
+}
+.compass-top-panel.hud-fade-out {
+    transform: translateX(-50%) translateY(-10px);
+}
+.hud-objective-ticker.hud-fade-out {
+    transform: translateY(-10px);
+}
+.alert-top-right.hud-fade-out {
+    transform: translateY(-10px);
+}
+
+/* 3D World Markers Depth Occlusion */
+.objective-marker.marker-occluded {
+    opacity: 0.35;
+}
+.objective-marker.marker-occluded .marker-box {
+    border-color: rgba(239, 68, 68, 0.4);
+    background: rgba(12, 18, 15, 0.5);
+    box-shadow: 0 0 4px rgba(239, 68, 68, 0.2);
+}
+.objective-marker.marker-occluded .marker-symbol {
+    color: var(--mil-red);
+    text-shadow: 0 0 4px rgba(239, 68, 68, 0.5);
+    animation: none;
+}
+.objective-marker.marker-occluded .marker-dist {
+    color: var(--mil-red);
+    text-shadow: none;
+}
+
+
