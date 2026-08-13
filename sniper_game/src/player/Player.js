@@ -57,6 +57,14 @@ export class Player {
         this._footstepInterval = 0.48;  // seconds between steps (standing)
         this._lastFootstepSurface = 'ground';
 
+        // Lock pointer on canvas click during gameplay
+        domElement.addEventListener('click', () => {
+            const stateManager = window.gameEngine?.stateManager;
+            if (stateManager && (stateManager.is('PLAYING') || stateManager.is('SCOPE')) && !this.controls.isLocked) {
+                try { this.controls.lock(); } catch(e) {}
+            }
+        });
+
         this.setupInput();
     }
 
@@ -149,36 +157,40 @@ export class Player {
 
     setupInput() {
         const onKeyDown = (event) => {
+            const isPlaying = window.gameEngine?.stateManager?.is('PLAYING') || window.gameEngine?.stateManager?.is('SCOPE');
+            const canMove = this.controls.isLocked || isPlaying;
+
             switch (event.code) {
-                // --- Movement (requires pointer lock) ---
+                // --- Movement ---
                 case 'KeyW':
                 case 'ArrowUp':
-                    if (this.controls.isLocked) this.moveForward = true;
+                    if (canMove) this.moveForward = true;
                     break;
                 case 'KeyA':
                 case 'ArrowLeft':
-                    if (this.controls.isLocked) this.moveLeft = true;
+                    if (canMove) this.moveLeft = true;
                     break;
                 case 'KeyS':
                 case 'ArrowDown':
-                    if (this.controls.isLocked) this.moveBackward = true;
+                    if (canMove) this.moveBackward = true;
                     break;
                 case 'KeyD':
                 case 'ArrowRight':
-                    if (this.controls.isLocked) this.moveRight = true;
+                    if (canMove) this.moveRight = true;
                     break;
                 case 'ControlLeft':
                 case 'KeyC':
-                    if (this.controls.isLocked) this.cycleStance();
+                    if (canMove) this.cycleStance();
                     break;
                 case 'Space':
-                    if (this.controls.isLocked) this.jump();
+                    if (canMove) this.jump();
                     break;
                 case 'ShiftLeft':
-                    if (this.controls.isLocked) this.isHoldingBreath = true;
+                case 'ShiftRight':
+                    if (canMove) this.isHoldingBreath = true;
                     break;
 
-                // --- Global keys (work without pointer lock) ---
+                // --- Global keys ---
                 case 'Escape':
                     this._handleEscapeKey();
                     break;
@@ -188,7 +200,7 @@ export class Player {
                     }
                     break;
                 case 'KeyQ':
-                    if (this.controls.isLocked && window.gameEngine?.weaponManager) {
+                    if (canMove && window.gameEngine?.weaponManager) {
                         window.gameEngine.weaponManager.weapon?.switchWeapon();
                     }
                     break;
@@ -196,7 +208,6 @@ export class Player {
         };
 
         const onKeyUp = (event) => {
-            if (!this.controls.isLocked) return;
             switch (event.code) {
                 case 'KeyW':
                 case 'ArrowUp':
@@ -215,10 +226,20 @@ export class Player {
                     this.moveRight = false;
                     break;
                 case 'ShiftLeft':
+                case 'ShiftRight':
                     this.isHoldingBreath = false;
                     break;
             }
         };
+
+        // Reset movement vectors if pointer lock is lost
+        this.controls.addEventListener('unlock', () => {
+            this.moveForward = false;
+            this.moveBackward = false;
+            this.moveLeft = false;
+            this.moveRight = false;
+            this.velocity.set(0, 0, 0);
+        });
 
         document.addEventListener('keydown', onKeyDown);
         document.addEventListener('keyup', onKeyUp);
@@ -284,7 +305,8 @@ export class Player {
     }
 
     update(dt, levelTargets = []) {
-        if (!this.controls.isLocked) return;
+        const stateManager = window.gameEngine?.stateManager;
+        if (stateManager && !stateManager.is('PLAYING') && !stateManager.is('SCOPE')) return;
 
         // Smooth stance height transition
         this.currentEyeHeight += (this.targetEyeHeight - this.currentEyeHeight) * Math.min(1.0, 10.0 * dt);

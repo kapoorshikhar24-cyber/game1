@@ -144,7 +144,64 @@ export class GameEngine {
         }
     }
 
+    playCutscene(videoPath, onComplete) {
+        const overlay = document.getElementById('cutscene-overlay');
+        const video = document.getElementById('cutscene-video');
+        const skipBtn = document.getElementById('skip-cutscene-btn');
+        
+        if (!overlay || !video) {
+            if (onComplete) onComplete();
+            return;
+        }
+
+        // Pause 3D game loop to free GPU/CPU for video decoding
+        this.loop.stop();
+
+        const source = video.querySelector('source');
+        if (source && videoPath && !source.src.endsWith(videoPath)) {
+            source.src = videoPath;
+            video.load();
+        }
+
+        overlay.classList.remove('hidden');
+        overlay.style.display = 'flex';
+
+        let finished = false;
+        const finish = () => {
+            if (finished) return;
+            finished = true;
+            try { video.pause(); } catch(e) {}
+            overlay.classList.add('hidden');
+            overlay.style.display = 'none';
+            window.removeEventListener('keydown', handleKey);
+            
+            // Resume 3D game loop when cutscene finishes
+            this.loop.start();
+            if (onComplete) onComplete();
+        };
+
+        const handleKey = (e) => {
+            if (e.code === 'Space' || e.code === 'Escape') {
+                e.preventDefault();
+                finish();
+            }
+        };
+
+        video.onended = finish;
+        if (skipBtn) skipBtn.onclick = finish;
+        window.addEventListener('keydown', handleKey);
+
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(err => {
+                console.warn('Cutscene auto-play blocked or missing asset:', err);
+                finish();
+            });
+        }
+    }
+
     render() {
         this.worldManager.render();
     }
 }
+

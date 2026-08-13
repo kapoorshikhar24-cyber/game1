@@ -62,15 +62,17 @@ export class UIManager {
         this.engine.eventBus.on('COMPOUND_ALERT_LEVEL_CHANGED', (e) => this.updateAlertIcon(e));
         this.engine.eventBus.on('TARGET_HIT', () => this.showHitMarker());
         
-        // Start (Mission 1 direct)
+        // Start (Mission 1 direct with intro video cutscene)
         const deployBtn = document.getElementById('btn-start');
         if (deployBtn) {
             deployBtn.addEventListener('click', () => {
-                this.engine.stateManager.setState('PLAYING');
-                const player = this.engine.playerManager?.player;
-                if (player?.controls) {
-                    try { player.controls.lock(); } catch (err) {}
-                }
+                this.engine.playCutscene('/assets/mission01_intro.mp4', () => {
+                    this.engine.stateManager.setState('PLAYING');
+                    const player = this.engine.playerManager?.player;
+                    if (player?.controls) {
+                        try { player.controls.lock(); } catch (err) {}
+                    }
+                });
             });
         }
 
